@@ -1,6 +1,23 @@
 # AI-Based Restaurant Table Allocation and Service Planner
 
-A full-stack, multi-agent restaurant service planner and simulator developed for CSE276. The system combines classical AI state-space search algorithms (Rule-Based, Greedy Search, BFS, DFS, and A*), an event-driven multi-agent simulation framework, and a grounded Retrieval-Augmented Generation (RAG) assistant using Claude API and local policy documents.
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-gold?style=for-the-badge&logo=github)](https://jiyasuteri.github.io/AI-Project/)
+[![Test Suite](https://img.shields.io/badge/Tests-17%2F17%20Passing-emerald?style=for-the-badge&logo=pytest)](https://github.com/JiyaSuteri/AI-Project)
+[![Presentation Deck](https://img.shields.io/badge/Presentation-Interactive%20Slides-blue?style=for-the-badge)](https://github.com/JiyaSuteri/AI-Project/blob/main/docs/PROJECT_PRESENTATION_PPT.md)
+[![Project Report](https://img.shields.io/badge/Project%20Report-Major%20Thesis-purple?style=for-the-badge)](https://github.com/JiyaSuteri/AI-Project/blob/main/docs/MAJOR_PROJECT_REPORT.md)
+
+> **Lead Architect & Developer:** Jiya Suteri  
+> **Institution:** Lovely Professional University, Punjab, India  
+> **Course:** Bachelor of Technology in Computer Science & Engineering (CSE276 Capstone)  
+> **Live Web Application:** [https://jiyasuteri.github.io/AI-Project/](https://jiyasuteri.github.io/AI-Project/)  
+
+---
+
+## 🚀 Quick Links for Teammates & Evaluators
+
+- 🌐 **Interactive Web Application:** [https://jiyasuteri.github.io/AI-Project/](https://jiyasuteri.github.io/AI-Project/)
+- 📑 **Formal Major Project Report:** [`docs/MAJOR_PROJECT_REPORT.md`](docs/MAJOR_PROJECT_REPORT.md) (and print-ready [`docs/MAJOR_PROJECT_REPORT.html`](docs/MAJOR_PROJECT_REPORT.html))
+- 🖥️ **Interactive Slide Presentation Deck:** [`docs/PROJECT_PRESENTATION_SLIDES.html`](docs/PROJECT_PRESENTATION_SLIDES.html)
+- 🎙️ **Slide Script & Viva Defense Q&A:** [`docs/PROJECT_PRESENTATION_PPT.md`](docs/PROJECT_PRESENTATION_PPT.md)
 
 ---
 
