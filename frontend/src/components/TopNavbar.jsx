@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useRestaurant } from '../context/RestaurantContext';
+import { useAuth } from '../context/AuthContext';
 import { api } from '../services/api';
+import AuthModal from './AuthModal';
 import {
   Menu,
   Search,
@@ -8,15 +10,21 @@ import {
   RotateCcw,
   Clock,
   CheckCircle2,
-  AlertTriangle,
-  User,
-  Activity,
   Zap,
-  Box
+  Box,
+  Compass,
+  UserCheck,
+  ShieldAlert,
+  LogOut,
+  LogIn,
+  Activity,
+  Sparkles
 } from 'lucide-react';
 
 export default function TopNavbar({ onMenuToggle }) {
   const {
+    activeTab,
+    setActiveTab,
     serverOnline,
     triggerRefresh,
     addToast,
@@ -27,8 +35,12 @@ export default function TopNavbar({ onMenuToggle }) {
     aiProviderInfo,
   } = useRestaurant();
 
+  const { user, isAuthenticated, isGuest, logout } = useAuth();
+
   const [currentTime, setCurrentTime] = useState(new Date());
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const [resetting, setResetting] = useState(false);
 
   useEffect(() => {
@@ -63,135 +75,233 @@ export default function TopNavbar({ onMenuToggle }) {
   });
 
   return (
-    <header className="sticky top-0 z-30 h-16 glass-panel border-b border-slate-800/80 px-4 sm:px-6 flex items-center justify-between gap-4">
-      {/* Left: Mobile hamburger & Title */}
-      <div className="flex items-center gap-3">
-        <button
-          onClick={onMenuToggle}
-          className="lg:hidden text-slate-400 hover:text-white p-2 rounded-xl hover:bg-white/5 transition-colors"
-        >
-          <Menu className="w-5 h-5" />
-        </button>
-
-        <div className="hidden sm:block">
-          <div className="text-sm font-semibold text-slate-100 flex items-center gap-2">
-            <span>Saffron & Sage</span>
-            <span className="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30">
-              AI Bistro
-            </span>
-
-            {/* Groq Active Pill */}
-            <span className="hidden xl:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-emerald-950/60 text-emerald-300 border border-emerald-500/30 shadow-[0_0_12px_-2px_rgba(16,185,129,0.3)]">
-              <Zap className="w-3 h-3 text-emerald-400" />
-              <span>Groq LPU Active (GPT-OSS-120B)</span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Center: Global Search */}
-      <div className="flex-1 max-w-md hidden md:block">
-        <div className="relative">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-          <input
-            type="text"
-            value={globalSearch}
-            onChange={(e) => setGlobalSearch(e.target.value)}
-            placeholder="Search tables, customer parties, servers..."
-            className="w-full bg-slate-900/80 border border-slate-800 rounded-xl pl-9 pr-4 py-1.5 text-xs text-slate-100 placeholder-slate-400 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/20 transition-all shadow-inner"
-          />
-        </div>
-      </div>
-
-      {/* Right: Date/Time, 3D Toggle, Quick Reset, Notifications & User */}
-      <div className="flex items-center gap-2 sm:gap-3">
-        {/* 3D Background Toggle */}
-        <button
-          onClick={() => setBg3DEnabled(!bg3DEnabled)}
-          title="Toggle 3D Ambient Perspective Background"
-          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-medium border transition-all ${
-            bg3DEnabled
-              ? 'bg-amber-500/15 text-amber-300 border-amber-500/40 shadow-[0_0_15px_-3px_rgba(245,158,11,0.3)]'
-              : 'bg-slate-900/60 text-slate-400 border-slate-800 hover:text-white'
-          }`}
-        >
-          <Box className={`w-3.5 h-3.5 ${bg3DEnabled ? 'text-amber-400 animate-spin-slow' : 'text-slate-500'}`} />
-          <span className="hidden sm:inline">3D View</span>
-        </button>
-
-        {/* Live Date & Time */}
-        <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 bg-slate-900/80 border border-slate-800 rounded-xl text-slate-300 text-xs">
-          <Clock className="w-3.5 h-3.5 text-amber-400" />
-          <span>{formattedDate}</span>
-          <span className="text-slate-600">•</span>
-          <span className="font-mono font-medium text-slate-100">{formattedTime}</span>
-        </div>
-
-        {/* Reset DB Button */}
-        <button
-          onClick={handleResetDb}
-          disabled={resetting}
-          title="Reset database to realistic sample scenario"
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-900/80 hover:bg-slate-850 text-slate-200 border border-slate-800 shadow-xs hover:border-amber-500/40 transition-all disabled:opacity-50"
-        >
-          <RotateCcw className={`w-3.5 h-3.5 text-amber-400 ${resetting ? 'animate-spin' : ''}`} />
-          <span className="hidden sm:inline">{resetting ? 'Resetting...' : 'Reset Demo DB'}</span>
-        </button>
-
-        {/* Notification Bell */}
-        <div className="relative">
+    <>
+      <header className="sticky top-0 z-30 h-16 bg-white/95 backdrop-blur-md border-b border-[#E8E3DA] px-4 sm:px-6 flex items-center justify-between gap-4">
+        {/* Left: Mobile hamburger & Title */}
+        <div className="flex items-center gap-3">
           <button
-            onClick={() => setShowNotifications(!showNotifications)}
-            className="relative p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
+            onClick={onMenuToggle}
+            className="lg:hidden text-stone-600 hover:text-[#28352D] p-2 rounded-xl hover:bg-stone-100 transition-colors"
           >
-            <Bell className="w-4 h-4" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-amber-400 ring-2 ring-slate-950 animate-pulse" />
+            <Menu className="w-5 h-5" />
           </button>
 
-          {showNotifications && (
-            <div className="absolute right-0 mt-2 w-80 glass-panel-elevated rounded-2xl shadow-2xl p-3.5 z-50 text-xs border border-slate-800 animate-fade-in">
-              <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-800 font-semibold text-slate-100">
-                <span>Restaurant System Alerts</span>
-                <span className="text-[10px] text-amber-400 font-mono">3 live feeds</span>
-              </div>
-              <div className="space-y-2">
-                <div className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start gap-2.5">
-                  <Zap className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                  <div>
-                    <div className="font-medium text-slate-100">Groq LPU Engine Active</div>
-                    <div className="text-slate-400 text-[11px]">Sub-second inference powered by openai/gpt-oss-120b.</div>
-                  </div>
-                </div>
-                <div className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start gap-2.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
-                  <div>
-                    <div className="font-medium text-slate-100">A* Search Guidance</div>
-                    <div className="text-slate-400 text-[11px]">Admissible lower-bound heuristic applied to pending queue.</div>
-                  </div>
-                </div>
-                <div className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start gap-2.5">
-                  <Activity className="w-3.5 h-3.5 text-sky-400 shrink-0 mt-0.5" />
-                  <div>
-                    <div className="font-medium text-slate-100">Sanitation Turnover</div>
-                    <div className="text-noir-400 text-[11px]">Table T09 resetting after customer departure.</div>
-                  </div>
-                </div>
-              </div>
+          <div className="hidden sm:block">
+            <div className="text-sm font-semibold text-[#28352D] flex items-center gap-2">
+              <span
+                onClick={() => setActiveTab('landing')}
+                className="cursor-pointer font-serif font-bold text-base hover:text-[#55745E] transition-colors"
+              >
+                Saffron &amp; Sage
+              </span>
+              <span className="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded bg-[#55745E]/10 text-[#55745E] border border-[#55745E]/20">
+                AI Bistro
+              </span>
+
+              {/* Live Status Pill */}
+              <span className="hidden xl:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[#FAF7F2] text-stone-600 border border-[#E8E3DA]">
+                <Zap className="w-3 h-3 text-[#55745E]" />
+                <span>{serverOnline ? (aiProviderInfo || 'Groq LPU Active') : 'Demo Mode (Offline)'}</span>
+              </span>
             </div>
-          )}
+          </div>
         </div>
 
-        {/* User Profile */}
-        <div className="flex items-center gap-2.5 pl-2 border-l border-white/10">
-          <div className="w-8 h-8 rounded-xl bg-champagne-500/20 text-champagne-300 border border-champagne-500/30 flex items-center justify-center font-bold text-xs shadow-xs">
-            MD
-          </div>
-          <div className="hidden lg:block text-left">
-            <div className="text-xs font-semibold text-white leading-tight">Chef Maître D'</div>
-            <div className="text-[10px] text-noir-400">Executive Floor Planner</div>
+        {/* Center: Global Search */}
+        <div className="flex-1 max-w-md hidden md:block">
+          <div className="relative">
+            <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={globalSearch}
+              onChange={(e) => setGlobalSearch(e.target.value)}
+              placeholder="Search tables, customer parties, servers..."
+              className="w-full bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl pl-9 pr-4 py-1.5 text-xs text-[#28352D] placeholder-stone-400 focus:outline-none focus:border-[#55745E] focus:ring-1 focus:ring-[#55745E]/20 transition-all"
+            />
           </div>
         </div>
-      </div>
-    </header>
+
+        {/* Right: Actions, Guest/Auth indicator, Profile */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Landing / Dashboard Toggle */}
+          <button
+            onClick={() => setActiveTab(activeTab === 'landing' ? 'dashboard' : 'landing')}
+            title="Toggle between Landing Overview and Live Dashboard"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#FAF7F2] hover:bg-stone-100 text-[#28352D] border border-[#E8E3DA] transition-all cursor-pointer"
+          >
+            <Compass className="w-3.5 h-3.5 text-[#55745E]" />
+            <span className="hidden sm:inline">
+              {activeTab === 'landing' ? 'Dashboard' : 'Home'}
+            </span>
+          </button>
+
+          {/* 3D Background Toggle (Default Off) */}
+          <button
+            onClick={() => setBg3DEnabled(!bg3DEnabled)}
+            title="Toggle 3D Ambient Perspective Background"
+            className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-medium border transition-all cursor-pointer ${
+              bg3DEnabled
+                ? 'bg-[#C47A59]/15 text-[#C47A59] border-[#C47A59]/40 font-semibold'
+                : 'bg-[#FAF7F2] text-stone-500 border-[#E8E3DA] hover:text-[#28352D]'
+            }`}
+          >
+            <Box className={`w-3.5 h-3.5 ${bg3DEnabled ? 'text-[#C47A59]' : 'text-stone-400'}`} />
+            <span className="hidden sm:inline">3D</span>
+          </button>
+
+          {/* Live Clock */}
+          <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl text-stone-600 text-xs">
+            <Clock className="w-3.5 h-3.5 text-[#55745E]" />
+            <span>{formattedDate}</span>
+            <span className="text-stone-400">•</span>
+            <span className="font-mono font-medium text-[#28352D]">{formattedTime}</span>
+          </div>
+
+          {/* Reset DB Button */}
+          <button
+            onClick={handleResetDb}
+            disabled={resetting}
+            title="Reset database to pristine realistic sample scenario"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-[#FAF7F2] hover:bg-stone-100 text-[#28352D] border border-[#E8E3DA] transition-all disabled:opacity-50 cursor-pointer"
+          >
+            <RotateCcw className={`w-3.5 h-3.5 text-[#55745E] ${resetting ? 'animate-spin' : ''}`} />
+            <span className="hidden md:inline">{resetting ? 'Resetting...' : 'Reset DB'}</span>
+          </button>
+
+          {/* Guest / Auth Status Badge */}
+          {isAuthenticated ? (
+            <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#55745E]/10 text-[#55745E] border border-[#55745E]/20">
+              <CheckCircle2 className="w-3.5 h-3.5 text-[#55745E]" />
+              <span className="max-w-[100px] truncate">{user?.name?.split(' ')[0] || 'Manager'}</span>
+            </div>
+          ) : (
+            <div
+              onClick={() => setShowAuthModal(true)}
+              className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200 cursor-pointer hover:bg-amber-100 transition-colors"
+              title="Click to sign in with Google"
+            >
+              <ShieldAlert className="w-3.5 h-3.5 text-amber-600" />
+              <span>Guest Mode (Read-Only)</span>
+            </div>
+          )}
+
+          {/* Notification Bell */}
+          <div className="relative">
+            <button
+              onClick={() => setShowNotifications(!showNotifications)}
+              className="relative p-2 rounded-xl text-stone-500 hover:text-[#28352D] hover:bg-stone-100 transition-colors cursor-pointer"
+            >
+              <Bell className="w-4 h-4" />
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#55745E] ring-2 ring-white" />
+            </button>
+
+            {showNotifications && (
+              <div className="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-xl p-3.5 z-50 text-xs border border-[#E8E3DA] animate-in fade-in duration-150">
+                <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#E8E3DA] font-semibold text-[#28352D]">
+                  <span>System Telemetry &amp; Alerts</span>
+                  <span className="text-[10px] text-[#55745E] font-mono">Live</span>
+                </div>
+                <div className="space-y-2">
+                  <div className="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8E3DA] flex items-start gap-2.5">
+                    <Zap className="w-3.5 h-3.5 text-[#55745E] shrink-0 mt-0.5" />
+                    <div>
+                      <div className="font-semibold text-[#28352D]">Groq LPU Engine Active</div>
+                      <div className="text-stone-500 text-[11px]">Sub-second inference and RAG grounder loaded.</div>
+                    </div>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8E3DA] flex items-start gap-2.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#C47A59] shrink-0 mt-0.5" />
+                    <div>
+                      <div className="font-semibold text-[#28352D]">5 Search Algorithms Available</div>
+                      <div className="text-stone-500 text-[11px]">A*, Greedy, BFS, DFS, and Rules ready in Advanced Tools.</div>
+                    </div>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E8E3DA] flex items-start gap-2.5">
+                    <Activity className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
+                    <div>
+                      <div className="font-semibold text-[#28352D]">Guest Sandbox Isolation</div>
+                      <div className="text-stone-500 text-[11px]">All guest allocations run safely in memory without changing live DB.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* User Account / Profile Menu */}
+          <div className="relative">
+            <button
+              onClick={() => setShowUserMenu(!showUserMenu)}
+              className="flex items-center gap-2 p-1 rounded-xl hover:bg-stone-100 transition-colors cursor-pointer"
+            >
+              {user?.picture ? (
+                <img
+                  src={user.picture}
+                  alt={user.name || 'User'}
+                  className="w-8 h-8 rounded-xl object-cover border border-[#E8E3DA]"
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-xl bg-[#55745E] text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                  {isAuthenticated ? (user?.name?.slice(0, 2).toUpperCase() || 'MD') : 'G'}
+                </div>
+              )}
+            </button>
+
+            {showUserMenu && (
+              <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl p-3 z-50 text-xs border border-[#E8E3DA] animate-in fade-in duration-150 space-y-2">
+                <div className="p-2 bg-[#FAF7F2] rounded-xl border border-[#E8E3DA]">
+                  <div className="font-bold text-[#28352D]">
+                    {isAuthenticated ? user?.name : 'Guest User'}
+                  </div>
+                  <div className="text-[11px] text-stone-500 truncate">
+                    {isAuthenticated ? user?.email : 'Exploring in Read-Only Sandbox'}
+                  </div>
+                  <div className="mt-1">
+                    <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-semibold ${
+                      isAuthenticated
+                        ? 'bg-[#55745E]/10 text-[#55745E]'
+                        : 'bg-amber-100 text-amber-800'
+                    }`}>
+                      {isAuthenticated ? `Role: ${user?.role || 'Manager'}` : 'Guest Mode'}
+                    </span>
+                  </div>
+                </div>
+
+                {isAuthenticated ? (
+                  <button
+                    onClick={() => {
+                      logout();
+                      setShowUserMenu(false);
+                      addToast('Signed out. Switched to Guest Mode.', 'info');
+                    }}
+                    className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-stone-700 hover:bg-rose-50 hover:text-rose-600 transition-colors font-medium cursor-pointer"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Log Out</span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setShowUserMenu(false);
+                      setShowAuthModal(true);
+                    }}
+                    className="w-full flex items-center gap-2 px-3 py-2 rounded-xl bg-[#55745E] text-white hover:bg-[#455E4C] transition-colors font-semibold cursor-pointer justify-center shadow-xs"
+                  >
+                    <LogIn className="w-4 h-4" />
+                    <span>Sign In with Google</span>
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </header>
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+      />
+    </>
   );
 }

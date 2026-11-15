@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from app.database.session import get_db
 from app.models import CustomerGroup, RestaurantTable
 from app.schemas import CustomerCreate, CustomerUpdate, CustomerOut
+from app.services.auth_service import verify_write_permission
 
 router = APIRouter(prefix="/customers", tags=["Customers"])
 
@@ -42,7 +43,7 @@ def get_customers(status_filter: Optional[str] = None, db: Session = Depends(get
     return [enrich_customer_out(c) for c in customers]
 
 @router.post("", response_model=CustomerOut, status_code=status.HTTP_201_CREATED)
-def create_customer(payload: CustomerCreate, db: Session = Depends(get_db)):
+def create_customer(payload: CustomerCreate, db: Session = Depends(get_db), _auth = Depends(verify_write_permission)):
     customer = CustomerGroup(
         group_name=payload.group_name,
         group_size=payload.group_size,
@@ -65,7 +66,7 @@ def get_customer(customer_id: int, db: Session = Depends(get_db)):
     return enrich_customer_out(customer)
 
 @router.put("/{customer_id}", response_model=CustomerOut)
-def update_customer(customer_id: int, payload: CustomerUpdate, db: Session = Depends(get_db)):
+def update_customer(customer_id: int, payload: CustomerUpdate, db: Session = Depends(get_db), _auth = Depends(verify_write_permission)):
     customer = db.query(CustomerGroup).filter(CustomerGroup.id == customer_id).first()
     if not customer:
         raise HTTPException(status_code=404, detail="Customer group not found")
@@ -79,7 +80,7 @@ def update_customer(customer_id: int, payload: CustomerUpdate, db: Session = Dep
     return enrich_customer_out(customer)
 
 @router.delete("/{customer_id}")
-def delete_customer(customer_id: int, db: Session = Depends(get_db)):
+def delete_customer(customer_id: int, db: Session = Depends(get_db), _auth = Depends(verify_write_permission)):
     customer = db.query(CustomerGroup).filter(CustomerGroup.id == customer_id).first()
     if not customer:
         raise HTTPException(status_code=404, detail="Customer group not found")

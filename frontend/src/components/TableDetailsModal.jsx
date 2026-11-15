@@ -59,37 +59,37 @@ export default function TableDetailsModal({ table, isOpen, onClose, waiters = []
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={`Table ${table.table_number} Configuration`}
+      title={`Table ${table.table_number} Details`}
       subtitle={`Zone: ${table.location} • Capacity: ${table.capacity} seats`}
     >
       <div className="space-y-5 text-sm">
         {/* Table Overview Card */}
-        <div className="p-4 rounded-2xl bg-noir-900/60 border border-white/5 grid grid-cols-2 gap-3 text-xs">
+        <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#E8E3DA] grid grid-cols-2 gap-3 text-xs">
           <div>
-            <span className="text-noir-400 block mb-0.5">Current Status</span>
-            <span className="font-semibold text-champagne-300 px-2 py-0.5 rounded-lg bg-champagne-500/10 border border-champagne-500/20 inline-block">
+            <span className="text-stone-500 block mb-0.5">Current Status</span>
+            <span className="font-semibold text-[#55745E] px-2 py-0.5 rounded-lg bg-[#55745E]/10 border border-[#55745E]/20 inline-block">
               {table.status}
             </span>
           </div>
           <div>
-            <span className="text-noir-400 block mb-0.5">Seating Capacity</span>
-            <span className="font-medium text-white flex items-center gap-1">
-              <Users className="w-3.5 h-3.5 text-champagne-400" />
-              {table.capacity} Persons
+            <span className="text-stone-500 block mb-0.5">Seating Capacity</span>
+            <span className="font-semibold text-[#28352D] flex items-center gap-1">
+              <Users className="w-3.5 h-3.5 text-[#55745E]" />
+              {table.capacity} Guests
             </span>
           </div>
 
           <div>
-            <span className="text-noir-400 block mb-0.5">Assigned Waiter</span>
-            <span className="font-medium text-white flex items-center gap-1">
-              <User className="w-3.5 h-3.5 text-noir-400" />
+            <span className="text-stone-500 block mb-0.5">Assigned Waiter</span>
+            <span className="font-semibold text-[#28352D] flex items-center gap-1">
+              <User className="w-3.5 h-3.5 text-stone-400" />
               {table.waiter_name || 'None'}
             </span>
           </div>
 
           <div>
-            <span className="text-noir-400 block mb-0.5">Current Customer</span>
-            <span className="font-medium text-white">
+            <span className="text-stone-500 block mb-0.5">Current Customer</span>
+            <span className="font-semibold text-[#28352D]">
               {table.group_name ? `${table.group_name} (${table.group_size}p)` : 'None'}
             </span>
           </div>
@@ -97,20 +97,20 @@ export default function TableDetailsModal({ table, isOpen, onClose, waiters = []
 
         {/* Change Status Fast Buttons */}
         <div>
-          <label className="text-xs font-semibold text-noir-400 block mb-2 uppercase tracking-wider">
-            Quick Status Transition
+          <label className="text-xs font-semibold text-stone-500 block mb-2 uppercase tracking-wider">
+            Transition Operational State
           </label>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {STATUSES.map((st) => (
               <button
                 key={st}
                 onClick={() => handleUpdateStatus(st)}
                 disabled={loading || table.status === st}
-                className={`px-3 py-2 rounded-xl text-xs font-medium border transition-all ${
+                className={`px-3 py-2 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
                   table.status === st
-                    ? 'bg-champagne-500 text-noir-950 font-bold border-champagne-400 shadow-glow-champagne'
-                    : 'bg-noir-900/80 text-noir-300 border-white/5 hover:border-champagne-500/40 hover:text-white'
-                } disabled:opacity-40`}
+                    ? 'bg-[#55745E] text-white border-[#55745E] shadow-xs'
+                    : 'bg-white hover:bg-stone-50 text-stone-700 border-[#E8E3DA]'
+                } disabled:opacity-50`}
               >
                 {st}
               </button>
@@ -118,26 +118,24 @@ export default function TableDetailsModal({ table, isOpen, onClose, waiters = []
           </div>
         </div>
 
-        {/* Actions */}
-        <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-3">
+        {/* Bottom Actions */}
+        <div className="pt-4 border-t border-[#E8E3DA] flex items-center justify-between gap-3">
           <button
-            type="button"
-            onClick={handleResetTable}
+            onClick={handleDeleteTable}
             disabled={loading}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-medium bg-noir-850 hover:bg-noir-800 text-white border border-white/10 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium text-stone-500 hover:text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-200 transition-colors cursor-pointer"
           >
-            <RefreshCw className={`w-3.5 h-3.5 text-champagne-400 ${loading ? 'animate-spin' : ''}`} />
-            Release / Reset Table
+            <Trash2 className="w-3.5 h-3.5" />
+            Delete Table
           </button>
 
           <button
-            type="button"
-            onClick={handleDeleteTable}
-            disabled={loading || table.status === 'OCCUPIED'}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium text-rose-400 hover:bg-rose-950/40 border border-rose-800/40 transition-colors disabled:opacity-30"
+            onClick={handleResetTable}
+            disabled={loading}
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-stone-50 text-[#28352D] border border-[#E8E3DA] shadow-xs transition-colors cursor-pointer"
           >
-            <Trash2 className="w-3.5 h-3.5" />
-            Delete
+            <RefreshCw className={`w-3.5 h-3.5 text-[#55745E] ${loading ? 'animate-spin' : ''}`} />
+            Clear &amp; Make Available
           </button>
         </div>
       </div>

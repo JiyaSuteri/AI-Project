@@ -1,4 +1,5 @@
 from app.routes.health import router as health_router
+from app.routes.auth import router as auth_router
 from app.routes.dashboard import router as dashboard_router
 from app.routes.tables import router as tables_router
 from app.routes.customers import router as customers_router
@@ -13,6 +14,7 @@ from app.routes.system import router as system_router
 
 __all__ = [
     "health_router",
+    "auth_router",
     "dashboard_router",
     "tables_router",
     "customers_router",

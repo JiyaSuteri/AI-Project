@@ -46,20 +46,20 @@ export default function AddTableModal({ isOpen, onClose }) {
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-xs font-semibold text-noir-300 mb-1">Table Number</label>
+          <label className="block text-xs font-semibold text-[#28352D] mb-1">Table Number</label>
           <input
             type="text"
             required
             value={tableNumber}
             onChange={(e) => setTableNumber(e.target.value)}
             placeholder="e.g. T15, T16, B01"
-            className="w-full bg-noir-900 border border-white/10 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-champagne-500 focus:border-champagne-500 uppercase placeholder-noir-500"
+            className="w-full bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl px-3.5 py-2 text-sm text-[#28352D] focus:outline-none focus:border-[#55745E] uppercase placeholder-stone-400"
           />
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-xs font-semibold text-noir-300 mb-1">Capacity (Seats)</label>
+            <label className="block text-xs font-semibold text-[#28352D] mb-1">Capacity (Seats)</label>
             <input
               type="number"
               min="1"
@@ -67,16 +67,16 @@ export default function AddTableModal({ isOpen, onClose }) {
               required
               value={capacity}
               onChange={(e) => setCapacity(e.target.value)}
-              className="w-full bg-noir-900 border border-white/10 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-champagne-500 focus:border-champagne-500"
+              className="w-full bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl px-3.5 py-2 text-sm text-[#28352D] focus:outline-none focus:border-[#55745E]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-noir-300 mb-1">Floor Zone / Location</label>
+            <label className="block text-xs font-semibold text-[#28352D] mb-1">Floor Zone / Location</label>
             <select
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="w-full bg-noir-900 border border-white/10 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-champagne-500 focus:border-champagne-500"
+              className="w-full bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl px-3.5 py-2 text-sm text-[#28352D] focus:outline-none focus:border-[#55745E]"
             >
               <option value="Main Dining">Main Dining</option>
               <option value="Window">Window</option>
@@ -88,18 +88,18 @@ export default function AddTableModal({ isOpen, onClose }) {
           </div>
         </div>
 
-        <div className="pt-3 border-t border-white/10 flex justify-end gap-2.5">
+        <div className="pt-4 border-t border-[#E8E3DA] flex justify-end gap-2.5">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 rounded-xl text-xs font-medium text-noir-300 hover:bg-white/5 transition-colors"
+            className="px-4 py-2 rounded-xl text-xs font-medium text-stone-500 hover:text-[#28352D] transition-colors cursor-pointer"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={loading}
-            className="px-5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-champagne-500 to-champagne-600 hover:from-champagne-400 hover:to-champagne-500 text-noir-950 shadow-glow-champagne transition-all disabled:opacity-50"
+            className="px-5 py-2 rounded-xl text-xs font-semibold bg-[#55745E] hover:bg-[#455E4C] text-white shadow-xs transition-all disabled:opacity-50 cursor-pointer"
           >
             {loading ? 'Creating...' : 'Create Table'}
           </button>

@@ -9,6 +9,7 @@ from app.database.session import engine, Base, SessionLocal
 from app.utils.seed_data import seed_database
 from app.routes import (
     health_router,
+    auth_router,
     dashboard_router,
     tables_router,
     customers_router,
@@ -43,17 +44,25 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# CORS Middleware
+# CORS Middleware - permits calls from GitHub Pages (jiyasuteri.github.io) and local dev
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # Allow development servers on any local port
-    allow_credentials=True,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "https://jiyasuteri.github.io",
+    ],
+    allow_origin_regex=r"^https?://.*$",
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # Include Routers
 app.include_router(health_router, prefix=settings.API_V1_STR)
+app.include_router(auth_router, prefix=settings.API_V1_STR)
 app.include_router(dashboard_router, prefix=settings.API_V1_STR)
 app.include_router(tables_router, prefix=settings.API_V1_STR)
 app.include_router(customers_router, prefix=settings.API_V1_STR)

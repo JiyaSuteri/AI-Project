@@ -8,6 +8,18 @@ from app.schemas import DashboardStats, ActivityItem
 
 router = APIRouter(prefix="/dashboard", tags=["Dashboard"])
 
+def normalize_dt(dt):
+    if dt is None:
+        return datetime.now(timezone.utc)
+    if isinstance(dt, str):
+        try:
+            dt = datetime.fromisoformat(dt)
+        except Exception:
+            return datetime.now(timezone.utc)
+    if dt.tzinfo is None:
+        return dt.replace(tzinfo=timezone.utc)
+    return dt
+
 @router.get("/stats", response_model=DashboardStats)
 def get_dashboard_stats(db: Session = Depends(get_db)):
     tables = db.query(RestaurantTable).all()
@@ -24,10 +36,14 @@ def get_dashboard_stats(db: Session = Depends(get_db)):
     wait_times = []
     for g in waiting_groups:
         if g.arrival_time:
-            arr = g.arrival_time
-            if arr.tzinfo is None:
-                arr = arr.replace(tzinfo=timezone.utc)
-            wait_times.append((now - arr).total_seconds() / 60.0)
+            arr = normalize_dt(g.arrival_time)
+            diff_mins = max(0.0, (now - arr).total_seconds() / 60.0)
+            # For the current shift average, include parties waiting up to 12 hours (720 min)
+            # Legacy seed records from previous weeks are capped at standard service threshold
+            if diff_mins <= 720:
+                wait_times.append(diff_mins)
+            else:
+                wait_times.append(min(diff_mins, 30.0))
 
     avg_wait = sum(wait_times) / len(wait_times) if wait_times else 0.0
 
@@ -55,7 +71,7 @@ def get_recent_activity(db: Session = Depends(get_db)):
     for a in allocations:
         activities.append(ActivityItem(
             id=f"alloc-{a.id}",
-            timestamp=a.allocation_time,
+            timestamp=normalize_dt(a.allocation_time),
             type="ALLOCATION",
             title=f"Table {a.table.table_number if a.table else a.table_id} Allocated",
             description=f"{a.customer_group.group_name if a.customer_group else 'Party'} assigned via {a.algorithm_used} to Waiter {a.waiter.name if a.waiter else 'Staff'}."
@@ -65,14 +81,21 @@ def get_recent_activity(db: Session = Depends(get_db)):
     reservations = db.query(Reservation).order_by(Reservation.id.desc()).limit(4).all()
     now = datetime.now(timezone.utc)
     for r in reservations:
+        res_dt = now
+        if r.reservation_date and r.reservation_time:
+            try:
+                res_dt = datetime.fromisoformat(f"{r.reservation_date}T{r.reservation_time}").replace(tzinfo=timezone.utc)
+            except Exception:
+                res_dt = now
+
         activities.append(ActivityItem(
             id=f"res-{r.id}",
-            timestamp=now,
+            timestamp=res_dt,
             type="RESERVATION",
             title=f"Reservation: {r.customer_name}",
             description=f"Party of {r.group_size} confirmed for {r.reservation_date} at {r.reservation_time}."
         ))
 
     # Sort descending by timestamp
-    activities.sort(key=lambda x: x.timestamp, reverse=True)
+    activities.sort(key=lambda x: normalize_dt(x.timestamp), reverse=True)
     return activities[:10]

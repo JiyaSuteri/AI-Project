@@ -106,3 +106,18 @@ class SimulationRecord(Base):
     execution_time = Column(Float, default=0.0)  # in ms
     utilization = Column(Float, default=0.0)     # percentage
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    google_id = Column(String(100), unique=True, index=True, nullable=True)
+    email = Column(String(150), unique=True, index=True, nullable=False)
+    name = Column(String(150), nullable=False)
+    picture = Column(String(500), nullable=True)
+    role = Column(String(50), default="MANAGER")  # MANAGER, HOST, ADMIN
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    last_login = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+

@@ -101,42 +101,42 @@ export default function AIAllocationPage() {
       {/* Title */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
-            <span>AI Table Allocation Engine</span>
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-champagne-500/15 text-champagne-300 font-semibold border border-champagne-500/30">
-              Core Academic Module
+          <h2 className="text-lg sm:text-xl font-bold text-[#28352D] font-serif tracking-tight flex items-center gap-2">
+            <span>Algorithm Runner &amp; Decision Trees</span>
+            <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#55745E]/10 text-[#55745E] font-semibold border border-[#55745E]/20">
+              Heuristic Inspection
             </span>
-          </h1>
-          <p className="text-xs sm:text-sm text-noir-400 mt-0.5">
+          </h2>
+          <p className="text-xs sm:text-sm text-stone-500 mt-0.5">
             Optimize table assignments and waiter distribution by minimizing multi-factor service cost.
           </p>
         </div>
 
         <button
-          onClick={() => setActiveTab('comparison')}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-noir-900 hover:bg-noir-850 text-white border border-white/10 shadow-xs transition-all"
+          onClick={() => setActiveTab('advanced')}
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-stone-50 text-[#28352D] border border-[#E8E3DA] shadow-xs transition-all cursor-pointer"
         >
           Compare All 5 Algorithms
         </button>
       </div>
 
       {/* Control Panel Card */}
-      <div className="glass-panel rounded-3xl p-5 sm:p-6 border border-white/10 shadow-3d-card space-y-5">
-        <div className="flex items-center justify-between flex-wrap gap-3 pb-4 border-b border-white/10">
+      <div className="bg-white rounded-3xl p-5 sm:p-6 border border-[#E8E3DA] shadow-xs space-y-5">
+        <div className="flex items-center justify-between flex-wrap gap-3 pb-4 border-b border-[#E8E3DA]">
           <div>
-            <span className="text-xs font-semibold text-champagne-400 uppercase tracking-wider block">
+            <span className="text-xs font-semibold text-[#55745E] uppercase tracking-wider block">
               Step 1: Select AI Algorithm
             </span>
-            <span className="text-xs text-noir-400">Choose the search paradigm to evaluate state transitions</span>
+            <span className="text-xs text-stone-500">Choose the search paradigm to evaluate state transitions</span>
           </div>
 
           {/* Auto-commit switch */}
-          <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-noir-300">
+          <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-stone-600">
             <input
               type="checkbox"
               checked={autoCommit}
               onChange={(e) => setAutoCommit(e.target.checked)}
-              className="w-4 h-4 rounded text-champagne-500 focus:ring-champagne-500 bg-noir-900 border-white/10"
+              className="w-4 h-4 rounded text-[#55745E] focus:ring-[#55745E] bg-[#FAF7F2] border-[#E8E3DA]"
             />
             <span>Commit decisions directly to live restaurant state</span>
           </label>
@@ -152,23 +152,23 @@ export default function AIAllocationPage() {
                 onClick={() => setSelectedAlgo(key)}
                 className={`p-3.5 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between ${
                   isSelected
-                    ? 'bg-champagne-500/15 border-champagne-500/50 shadow-glow-champagne ring-1 ring-champagne-500/30'
-                    : 'bg-noir-900/60 border-white/5 hover:border-white/15 hover:bg-noir-900'
+                    ? 'bg-[#55745E]/10 border-[#55745E] shadow-xs'
+                    : 'bg-[#FAF7F2] border-[#E8E3DA] hover:border-stone-300'
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-xs font-bold text-white">{item.name.split(' ')[0]}</span>
-                    <span className={`text-[9px] px-1.5 py-0.5 rounded font-mono font-bold uppercase ${isSelected ? 'bg-champagne-500 text-noir-950' : 'bg-noir-800 text-noir-400'}`}>
+                    <span className="text-xs font-bold text-[#28352D]">{item.name.split(' ')[0]}</span>
+                    <span className={`text-[9px] px-1.5 py-0.5 rounded font-mono font-bold uppercase ${isSelected ? 'bg-[#55745E] text-white' : 'bg-stone-200 text-stone-600'}`}>
                       {key}
                     </span>
                   </div>
-                  <p className="text-[11px] text-noir-400 leading-snug line-clamp-3">
+                  <p className="text-[11px] text-stone-500 leading-snug line-clamp-3">
                     {item.description}
                   </p>
                 </div>
 
-                <div className="mt-3 pt-2 border-t border-white/5 text-[10px] font-semibold text-champagne-400">
+                <div className="mt-3 pt-2 border-t border-stone-200/60 text-[10px] font-semibold text-[#55745E]">
                   {item.badge}
                 </div>
               </div>
@@ -177,14 +177,14 @@ export default function AIAllocationPage() {
         </div>
 
         {/* Action Button & Readiness Summary */}
-        <div className="pt-4 border-t border-white/10 flex items-center justify-between flex-wrap gap-4">
+        <div className="pt-4 border-t border-[#E8E3DA] flex items-center justify-between flex-wrap gap-4">
           <div className="flex items-center gap-4 text-xs">
-            <div className="flex items-center gap-1.5 text-noir-300">
-              <span className="w-2 h-2 rounded-full bg-amber-400" />
+            <div className="flex items-center gap-1.5 text-stone-600">
+              <span className="w-2 h-2 rounded-full bg-amber-500" />
               <span>Queue Waiting: <strong>{waitingCustomers.length} parties</strong></span>
             </div>
-            <div className="flex items-center gap-1.5 text-noir-300">
-              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+            <div className="flex items-center gap-1.5 text-stone-600">
+              <span className="w-2 h-2 rounded-full bg-[#55745E]" />
               <span>Available Tables: <strong>{availableTables.length} tables</strong></span>
             </div>
           </div>
@@ -192,9 +192,9 @@ export default function AIAllocationPage() {
           <button
             onClick={handleRunAllocation}
             disabled={running || waitingCustomers.length === 0 || availableTables.length === 0}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-2xl text-xs font-bold bg-gradient-to-r from-champagne-500 to-champagne-600 hover:from-champagne-400 hover:to-champagne-500 text-noir-950 shadow-glow-champagne transition-all disabled:opacity-40"
+            className="flex items-center gap-2 px-6 py-2.5 rounded-2xl text-xs font-bold bg-[#55745E] hover:bg-[#455E4C] text-white shadow-xs transition-all disabled:opacity-40 cursor-pointer"
           >
-            <Sparkles className={`w-4 h-4 text-noir-950 ${running ? 'animate-spin' : ''}`} />
+            <Sparkles className={`w-4 h-4 text-white ${running ? 'animate-spin' : ''}`} />
             {running ? 'Evaluating Search States...' : `Execute ${selectedAlgo} Allocation`}
           </button>
         </div>
@@ -202,40 +202,40 @@ export default function AIAllocationPage() {
 
       {/* Allocation Execution Results */}
       {allocationResult && (
-        <div className="space-y-4 animate-fade-in">
+        <div className="space-y-4 animate-in fade-in duration-200">
           {/* Metrics bar */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-            <div className="p-3.5 rounded-2xl glass-panel border border-white/10">
-              <span className="text-[10px] text-noir-400 block uppercase font-medium">Algorithm</span>
-              <span className="text-sm font-bold text-white">{allocationResult.algorithm}</span>
+            <div className="p-3.5 rounded-2xl bg-white border border-[#E8E3DA] shadow-xs">
+              <span className="text-[10px] text-stone-500 block uppercase font-medium">Algorithm</span>
+              <span className="text-sm font-bold text-[#28352D]">{allocationResult.algorithm}</span>
             </div>
-            <div className="p-3.5 rounded-2xl glass-panel border border-white/10">
-              <span className="text-[10px] text-noir-400 block uppercase font-medium">Execution Time</span>
-              <span className="text-sm font-bold text-champagne-300 font-mono">{allocationResult.execution_time_ms} ms</span>
+            <div className="p-3.5 rounded-2xl bg-white border border-[#E8E3DA] shadow-xs">
+              <span className="text-[10px] text-stone-500 block uppercase font-medium">Execution Time</span>
+              <span className="text-sm font-bold text-[#55745E] font-mono">{allocationResult.execution_time_ms} ms</span>
             </div>
-            <div className="p-3.5 rounded-2xl glass-panel border border-white/10">
-              <span className="text-[10px] text-noir-400 block uppercase font-medium">Nodes Explored</span>
-              <span className="text-sm font-bold text-champagne-400">{allocationResult.nodes_explored} states</span>
+            <div className="p-3.5 rounded-2xl bg-white border border-[#E8E3DA] shadow-xs">
+              <span className="text-[10px] text-stone-500 block uppercase font-medium">Nodes Explored</span>
+              <span className="text-sm font-bold text-[#55745E]">{allocationResult.nodes_explored} states</span>
             </div>
-            <div className="p-3.5 rounded-2xl glass-panel border border-white/10">
-              <span className="text-[10px] text-noir-400 block uppercase font-medium">Success Rate</span>
-              <span className="text-sm font-bold text-emerald-400">
+            <div className="p-3.5 rounded-2xl bg-white border border-[#E8E3DA] shadow-xs">
+              <span className="text-[10px] text-stone-500 block uppercase font-medium">Success Rate</span>
+              <span className="text-sm font-bold text-[#55745E]">
                 {allocationResult.successful_allocations} / {allocationResult.total_requested}
               </span>
             </div>
-            <div className="p-3.5 rounded-2xl glass-panel border border-white/10">
-              <span className="text-[10px] text-noir-400 block uppercase font-medium">Table Utilization</span>
-              <span className="text-sm font-bold text-white">{allocationResult.table_utilization_percent}%</span>
+            <div className="p-3.5 rounded-2xl bg-white border border-[#E8E3DA] shadow-xs">
+              <span className="text-[10px] text-stone-500 block uppercase font-medium">Table Utilization</span>
+              <span className="text-sm font-bold text-[#28352D]">{allocationResult.table_utilization_percent}%</span>
             </div>
-            <div className="p-3.5 rounded-2xl glass-panel border border-white/10">
-              <span className="text-[10px] text-noir-400 block uppercase font-medium">Total Cost Score</span>
-              <span className="text-sm font-bold text-champagne-300 font-mono">{allocationResult.total_cost}</span>
+            <div className="p-3.5 rounded-2xl bg-white border border-[#E8E3DA] shadow-xs">
+              <span className="text-[10px] text-stone-500 block uppercase font-medium">Total Cost Score</span>
+              <span className="text-sm font-bold text-[#916E32] font-mono">{allocationResult.total_cost}</span>
             </div>
           </div>
 
           {/* Allocation Decisions Details */}
-          <div className="glass-panel rounded-3xl border border-white/10 shadow-3d-card p-5 sm:p-6 space-y-4">
-            <h3 className="text-sm font-bold text-white">Allocation Decision Explanations & Alternatives</h3>
+          <div className="bg-white rounded-3xl border border-[#E8E3DA] shadow-xs p-5 sm:p-6 space-y-4">
+            <h3 className="text-sm font-bold text-[#28352D] font-serif">Allocation Decision Explanations &amp; Alternatives</h3>
 
             <div className="space-y-3">
               {allocationResult.decisions.map((dec, idx) => (
@@ -243,35 +243,35 @@ export default function AIAllocationPage() {
                   key={idx}
                   className={`p-4 rounded-2xl border text-xs ${
                     dec.success
-                      ? 'bg-noir-900/70 border-white/10'
-                      : 'bg-rose-950/40 border-rose-800/40'
+                      ? 'bg-[#FAF7F2] border-[#E8E3DA]'
+                      : 'bg-rose-50 border-rose-200'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <div className="flex items-center gap-2">
-                      <span className={`w-2 h-2 rounded-full ${dec.success ? 'bg-emerald-400 shadow-glow-emerald' : 'bg-rose-400'}`} />
-                      <span className="font-bold text-white text-sm">{dec.group_name} ({dec.group_size} guests)</span>
+                      <span className={`w-2 h-2 rounded-full ${dec.success ? 'bg-[#55745E]' : 'bg-rose-500'}`} />
+                      <span className="font-bold text-[#28352D] text-sm">{dec.group_name} ({dec.group_size} guests)</span>
                       {dec.table_number && (
-                        <span className="px-2 py-0.5 rounded-md bg-noir-850 border border-champagne-500/30 font-mono font-semibold text-champagne-300">
+                        <span className="px-2 py-0.5 rounded-md bg-white border border-[#55745E]/30 font-mono font-semibold text-[#55745E]">
                           Table {dec.table_number} ({dec.table_capacity} seats)
                         </span>
                       )}
                     </div>
 
-                    <span className="text-[11px] font-mono text-noir-400">
-                      Cost: <strong className="text-champagne-300">{dec.cost.toFixed(1)}</strong>
+                    <span className="text-[11px] font-mono text-stone-500">
+                      Cost: <strong className="text-[#916E32]">{dec.cost.toFixed(1)}</strong>
                     </span>
                   </div>
 
                   {/* Decision Explanation */}
-                  <p className="text-noir-300 leading-relaxed font-normal mb-2">
+                  <p className="text-stone-600 leading-relaxed font-normal mb-2">
                     {dec.reason}
                   </p>
 
                   {/* Rejected Alternatives */}
                   {dec.rejected_alternatives && dec.rejected_alternatives.length > 0 && (
-                    <div className="mt-2 pt-2 border-t border-white/5 text-[11px] text-noir-400">
-                      <span className="font-semibold text-noir-300 block mb-1">Evaluated & Rejected Alternatives:</span>
+                    <div className="mt-2 pt-2 border-t border-stone-200/80 text-[11px] text-stone-500">
+                      <span className="font-semibold text-stone-700 block mb-1">Evaluated &amp; Rejected Alternatives:</span>
                       <ul className="list-disc pl-4 space-y-0.5">
                         {dec.rejected_alternatives.map((alt, aIdx) => (
                           <li key={aIdx}>{alt}</li>
@@ -287,12 +287,12 @@ export default function AIAllocationPage() {
       )}
 
       {/* Recent Allocations Table */}
-      <div className="glass-panel rounded-3xl border border-white/10 shadow-3d-card p-5 sm:p-6">
-        <h3 className="text-sm font-bold text-white mb-3">Recent Executed Allocations Log</h3>
+      <div className="bg-white rounded-3xl border border-[#E8E3DA] shadow-xs p-5 sm:p-6">
+        <h3 className="text-sm font-bold text-[#28352D] font-serif mb-3">Recent Executed Allocations Log</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="bg-noir-900/80 border-b border-white/10 text-noir-400 font-semibold uppercase text-[10px]">
+              <tr className="bg-[#FAF7F2] border-b border-[#E8E3DA] text-stone-500 font-semibold uppercase text-[10px]">
                 <th className="py-2.5 px-3">Party Name</th>
                 <th className="py-2.5 px-3">Table</th>
                 <th className="py-2.5 px-3">Waiter Assigned</th>
@@ -300,25 +300,25 @@ export default function AIAllocationPage() {
                 <th className="py-2.5 px-3">Decision Reason</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5 text-noir-200">
+            <tbody className="divide-y divide-[#E8E3DA] text-[#28352D]">
               {recentAllocations.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="py-6 text-center text-noir-500">
-                    No logged allocations found in active session.
+                  <td colSpan="5" className="py-6 text-center text-stone-400">
+                    No allocations yet
                   </td>
                 </tr>
               ) : (
                 recentAllocations.map((a) => (
-                  <tr key={a.id} className="hover:bg-white/5">
-                    <td className="py-2.5 px-3 font-semibold text-white">{a.group_name || `Group #${a.customer_group_id}`}</td>
-                    <td className="py-2.5 px-3 font-mono font-medium text-champagne-300">{a.table_number || `Table #${a.table_id}`}</td>
+                  <tr key={a.id} className="hover:bg-stone-50/80">
+                    <td className="py-2.5 px-3 font-semibold text-[#28352D]">{a.group_name || `Group #${a.customer_group_id}`}</td>
+                    <td className="py-2.5 px-3 font-mono font-medium text-[#55745E]">{a.table_number || `Table #${a.table_id}`}</td>
                     <td className="py-2.5 px-3">{a.waiter_name || `Staff #${a.waiter_id}`}</td>
                     <td className="py-2.5 px-3">
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-noir-850 text-noir-300 border border-white/10">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#FAF7F2] text-stone-600 border border-[#E8E3DA]">
                         {a.algorithm_used}
                       </span>
                     </td>
-                    <td className="py-2.5 px-3 text-[11px] text-noir-400 max-w-xs truncate">{a.allocation_reason}</td>
+                    <td className="py-2.5 px-3 text-[11px] text-stone-500 max-w-xs truncate">{a.allocation_reason}</td>
                   </tr>
                 ))
               )}

@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from app.database.session import get_db
 from app.models import Waiter, RestaurantTable
 from app.schemas import WaiterCreate, WaiterUpdate, WaiterOut
+from app.services.auth_service import verify_write_permission
 
 router = APIRouter(prefix="/waiters", tags=["Waiters"])
 
@@ -15,7 +16,7 @@ def get_waiters(available_only: Optional[bool] = None, db: Session = Depends(get
     return query.order_by(Waiter.id).all()
 
 @router.post("", response_model=WaiterOut, status_code=status.HTTP_201_CREATED)
-def create_waiter(payload: WaiterCreate, db: Session = Depends(get_db)):
+def create_waiter(payload: WaiterCreate, db: Session = Depends(get_db), _auth = Depends(verify_write_permission)):
     waiter = Waiter(
         name=payload.name,
         availability=payload.availability,
@@ -37,7 +38,7 @@ def get_waiter(waiter_id: int, db: Session = Depends(get_db)):
     return waiter
 
 @router.put("/{waiter_id}", response_model=WaiterOut)
-def update_waiter(waiter_id: int, payload: WaiterUpdate, db: Session = Depends(get_db)):
+def update_waiter(waiter_id: int, payload: WaiterUpdate, db: Session = Depends(get_db), _auth = Depends(verify_write_permission)):
     waiter = db.query(Waiter).filter(Waiter.id == waiter_id).first()
     if not waiter:
         raise HTTPException(status_code=404, detail="Waiter not found")
@@ -53,7 +54,7 @@ def update_waiter(waiter_id: int, payload: WaiterUpdate, db: Session = Depends(g
     return waiter
 
 @router.delete("/{waiter_id}")
-def delete_waiter(waiter_id: int, db: Session = Depends(get_db)):
+def delete_waiter(waiter_id: int, db: Session = Depends(get_db), _auth = Depends(verify_write_permission)):
     waiter = db.query(Waiter).filter(Waiter.id == waiter_id).first()
     if not waiter:
         raise HTTPException(status_code=404, detail="Waiter not found")

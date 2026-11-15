@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 from typing import List, Optional
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Header
 from sqlalchemy.orm import Session
 from app.database.session import get_db
 from app.models import RestaurantTable, Waiter, CustomerGroup, Allocation
@@ -72,9 +72,41 @@ def load_algorithm_dtos(db: Session, group_ids: Optional[List[int]] = None):
     return customer_dtos, table_dtos, waiter_dtos, customers_db, tables_db, waiters_db
 
 @router.post("/run", response_model=AllocationRunResponse)
-def run_allocation(payload: AllocationRunRequest, db: Session = Depends(get_db)):
-    algo = payload.algorithm.upper()
+def run_allocation(
+    payload: AllocationRunRequest,
+    db: Session = Depends(get_db),
+    x_guest_mode: Optional[str] = Header(None, alias="X-Guest-Mode")
+):
+    raw_algo = payload.algorithm.upper().strip().replace("-", "_").replace(" ", "_")
+    algo = "A_STAR" if raw_algo in ["ASTAR", "A_STAR", "A*"] else raw_algo
+
+    # Strict Check 1 & 2 before algorithm run: Validate requested customer(s)
+    if payload.group_ids:
+        for gid in payload.group_ids:
+            c = db.query(CustomerGroup).filter(CustomerGroup.id == gid).first()
+            if not c:
+                raise HTTPException(status_code=404, detail=f"Customer group #{gid} not found.")
+            
+            # Check 1: Check whether the customer already has an active allocation or is seated
+            active_table = db.query(RestaurantTable).filter(RestaurantTable.current_group_id == c.id).first()
+            if c.status == "SEATED" or active_table is not None:
+                raise HTTPException(
+                    status_code=409,
+                    detail="This customer already has an assigned table."
+                )
+            
+            # Check 2: Check whether the customer is still WAITING
+            if c.status != "WAITING":
+                raise HTTPException(
+                    status_code=409,
+                    detail=f"Customer '{c.group_name}' is not in WAITING status (current: {c.status})."
+                )
+
     c_dtos, t_dtos, w_dtos, customers_db, tables_db, waiters_db = load_algorithm_dtos(db, payload.group_ids)
+
+    # In Guest Mode, force auto_commit to False to isolate real database records
+    is_guest = bool(x_guest_mode and x_guest_mode.lower() in ["true", "1", "yes"])
+    should_commit = payload.auto_commit and not is_guest
 
     if not c_dtos:
         raise HTTPException(status_code=400, detail="No waiting customer groups found to allocate.")
@@ -104,46 +136,111 @@ def run_allocation(payload: AllocationRunRequest, db: Session = Depends(get_db))
     decisions: List[AllocationDecision] = []
     
     # Process assignments
-    for a in result.assignments:
-        table_obj = t_map.get(a.table_id)
-        waiter_obj = w_map.get(a.waiter_id)
-        cust_obj = c_map.get(a.group_id)
+    try:
+        for a in result.assignments:
+            table_obj = t_map.get(a.table_id)
+            waiter_obj = w_map.get(a.waiter_id)
+            cust_obj = c_map.get(a.group_id)
 
-        decisions.append(AllocationDecision(
-            group_id=a.group_id,
-            group_name=cust_obj.group_name if cust_obj else f"Group #{a.group_id}",
-            group_size=cust_obj.group_size if cust_obj else 0,
-            table_id=a.table_id,
-            table_number=table_obj.table_number if table_obj else None,
-            table_capacity=table_obj.capacity if table_obj else None,
-            waiter_id=a.waiter_id,
-            waiter_name=waiter_obj.name if waiter_obj else None,
-            success=True,
-            reason=a.reason,
-            rejected_alternatives=a.rejected_alternatives,
-            cost=a.cost
-        ))
+            decisions.append(AllocationDecision(
+                group_id=a.group_id,
+                group_name=cust_obj.group_name if cust_obj else f"Group #{a.group_id}",
+                group_size=cust_obj.group_size if cust_obj else 0,
+                table_id=a.table_id,
+                table_number=table_obj.table_number if table_obj else None,
+                table_capacity=table_obj.capacity if table_obj else None,
+                waiter_id=a.waiter_id,
+                waiter_name=waiter_obj.name if waiter_obj else None,
+                success=True,
+                reason=a.reason,
+                rejected_alternatives=a.rejected_alternatives,
+                cost=a.cost
+            ))
 
-        # Commit to real database if auto_commit is True
-        if payload.auto_commit and table_obj and waiter_obj and cust_obj:
-            table_obj.status = "OCCUPIED"
-            table_obj.current_group_id = cust_obj.id
-            table_obj.current_waiter_id = waiter_obj.id
+            # Commit to real database if auto_commit is True and not in Guest Mode
+            if should_commit:
+                # Fresh database re-fetch inside transaction for absolute concurrency consistency
+                fresh_cust = db.query(CustomerGroup).filter(CustomerGroup.id == a.group_id).first()
+                fresh_table = db.query(RestaurantTable).filter(RestaurantTable.id == a.table_id).first()
+                fresh_waiter = db.query(Waiter).filter(Waiter.id == a.waiter_id).first()
 
-            cust_obj.status = "SEATED"
+                if not fresh_cust:
+                    raise HTTPException(status_code=404, detail=f"Customer #{a.group_id} not found.")
 
-            waiter_obj.assigned_tables += 1
-            waiter_obj.workload_score = round(waiter_obj.assigned_tables / waiter_obj.max_tables, 2)
+                # Check 1: Check whether the customer already has an active allocation or is seated
+                active_table = db.query(RestaurantTable).filter(RestaurantTable.current_group_id == fresh_cust.id).first()
+                if fresh_cust.status == "SEATED" or active_table is not None:
+                    raise HTTPException(
+                        status_code=409,
+                        detail="This customer already has an assigned table."
+                    )
 
-            db_alloc = Allocation(
-                customer_group_id=cust_obj.id,
-                table_id=table_obj.id,
-                waiter_id=waiter_obj.id,
-                allocation_time=datetime.now(timezone.utc),
-                algorithm_used=algo,
-                allocation_reason=a.reason
-            )
-            db.add(db_alloc)
+                # Check 2: Check whether the customer is still WAITING
+                if fresh_cust.status != "WAITING":
+                    raise HTTPException(
+                        status_code=409,
+                        detail=f"Customer '{fresh_cust.group_name}' is not in WAITING status (current: {fresh_cust.status})."
+                    )
+
+                # Check 3: Check whether the selected table is AVAILABLE
+                if not fresh_table or fresh_table.status != "AVAILABLE" or not fresh_table.is_active:
+                    raise HTTPException(
+                        status_code=409,
+                        detail=f"Table {fresh_table.table_number if fresh_table else a.table_id} is no longer AVAILABLE."
+                    )
+
+                # Check 4: Check whether the table has sufficient capacity
+                if fresh_table.capacity < fresh_cust.group_size:
+                    raise HTTPException(
+                        status_code=409,
+                        detail=f"Table {fresh_table.table_number} capacity ({fresh_table.capacity}) is insufficient for party size of {fresh_cust.group_size}."
+                    )
+
+                # Check 5: Check whether the table is already assigned to another customer
+                if fresh_table.current_group_id is not None:
+                    raise HTTPException(
+                        status_code=409,
+                        detail=f"Table {fresh_table.table_number} is already assigned to another customer."
+                    )
+
+                # Check 6: Check whether the recommendation is still valid (assigned waiter available)
+                if not fresh_waiter or not fresh_waiter.availability:
+                    raise HTTPException(
+                        status_code=409,
+                        detail="The recommended waiter is no longer available on duty."
+                    )
+
+                # Atomic mutation
+                fresh_table.status = "OCCUPIED"
+                fresh_table.current_group_id = fresh_cust.id
+                fresh_table.current_waiter_id = fresh_waiter.id
+
+                fresh_cust.status = "SEATED"
+
+                fresh_waiter.assigned_tables += 1
+                fresh_waiter.workload_score = round(fresh_waiter.assigned_tables / fresh_waiter.max_tables, 2)
+
+                db_alloc = Allocation(
+                    customer_group_id=fresh_cust.id,
+                    table_id=fresh_table.id,
+                    waiter_id=fresh_waiter.id,
+                    allocation_time=datetime.now(timezone.utc),
+                    algorithm_used=algo,
+                    allocation_reason=a.reason
+                )
+                db.add(db_alloc)
+
+        if should_commit and result.assignments:
+            db.commit()
+    except HTTPException:
+        db.rollback()
+        raise
+    except Exception as exc:
+        db.rollback()
+        raise HTTPException(
+            status_code=500,
+            detail=f"Database transaction failed during table allocation: {str(exc)}"
+        )
 
     # Process unallocated
     for u_id in result.unallocated_group_ids:
@@ -163,7 +260,7 @@ def run_allocation(payload: AllocationRunRequest, db: Session = Depends(get_db))
             cost=100.0
         ))
 
-    if payload.auto_commit:
+    if should_commit:
         db.commit()
 
     return AllocationRunResponse(

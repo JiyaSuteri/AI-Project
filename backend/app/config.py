@@ -15,18 +15,25 @@ class Settings(BaseSettings):
     
     # Groq AI (High-speed LPU Inference)
     GROQ_API_KEY: str = ""
-    GROQ_MODEL: str = "openai/gpt-oss-120b"
+    GROQ_MODEL: str = "llama-3.3-70b-versatile"
     
     # Claude AI (Optional)
     ANTHROPIC_API_KEY: str = ""
     ANTHROPIC_MODEL: str = "claude-3-5-sonnet-20241022"
     
+    # Authentication (Google OAuth 2.0 & Session JWT)
+    GOOGLE_CLIENT_ID: str = ""
+    JWT_SECRET_KEY: str = "saffron-and-sage-secret-jwt-key-2026"
+    JWT_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days
+
     # CORS
     CORS_ORIGINS: List[str] = [
         "http://localhost:5173",
         "http://127.0.0.1:5173",
         "http://localhost:3000",
         "http://127.0.0.1:3000",
+        "https://jiyasuteri.github.io",
         "*"
     ]
 

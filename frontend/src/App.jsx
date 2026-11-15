@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { RestaurantProvider, useRestaurant } from './context/RestaurantContext';
+import { AuthProvider } from './context/AuthContext';
 import Sidebar from './components/Sidebar';
 import TopNavbar from './components/TopNavbar';
 import ToastContainer from './components/Toast';
 import Background3D from './components/Background3D';
+import FloatingAIAssistant from './components/FloatingAIAssistant';
 
+import LandingPage from './pages/LandingPage';
 import DashboardPage from './pages/DashboardPage';
 import TableManagementPage from './pages/TableManagementPage';
 import WaiterManagementPage from './pages/WaiterManagementPage';
@@ -16,6 +19,7 @@ import AlgorithmComparisonPage from './pages/AlgorithmComparisonPage';
 import AIAssistantPage from './pages/AIAssistantPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import SettingsPage from './pages/SettingsPage';
+import AdvancedToolsPage from './pages/AdvancedToolsPage';
 
 function AppContent() {
   const { activeTab, bg3DEnabled } = useRestaurant();
@@ -23,6 +27,8 @@ function AppContent() {
 
   const renderActivePage = () => {
     switch (activeTab) {
+      case 'landing':
+        return <LandingPage />;
       case 'dashboard':
         return <DashboardPage />;
       case 'tables':
@@ -33,33 +39,32 @@ function AppContent() {
         return <CustomerQueuePage />;
       case 'reservations':
         return <ReservationsPage />;
-      case 'allocation':
-        return <AIAllocationPage />;
-      case 'simulation':
-        return <SimulationPage />;
-      case 'comparison':
-        return <AlgorithmComparisonPage />;
       case 'assistant':
-        return <AIAssistantPage />;
-      case 'analytics':
-        return <AnalyticsPage />;
+        return <DashboardPage />;
+      case 'advanced':
+        return <AdvancedToolsPage />;
       case 'settings':
         return <SettingsPage />;
+      // Backward-compatible direct fallbacks
+      case 'allocation':
+        return <AdvancedToolsPage />;
+      case 'simulation':
+        return <AdvancedToolsPage />;
+      case 'comparison':
+        return <AdvancedToolsPage />;
+      case 'analytics':
+        return <AdvancedToolsPage />;
       default:
         return <DashboardPage />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#080B11]/90 text-slate-100 flex relative overflow-x-hidden">
-      {/* Ambient Lighting Depth Glows */}
-      <div className="fixed top-[-100px] right-[10%] w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="fixed bottom-[-100px] left-[15%] w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[160px] pointer-events-none -z-10" />
-
-      {/* 3D Isometric & Depth Elements Canvas */}
+    <div className="min-h-screen bg-[#FAF7F2] text-[#28352D] flex relative overflow-x-hidden selection:bg-[#55745E]/20 selection:text-[#28352D]">
+      {/* 3D Isometric & Depth Elements Canvas (Default Disabled) */}
       <Background3D enabled={bg3DEnabled} />
 
-      {/* Sidebar */}
+      {/* Sidebar Navigation */}
       <Sidebar
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
@@ -73,6 +78,9 @@ function AppContent() {
         </main>
       </div>
 
+      {/* Floating AI Assistant (Shown on all dashboard pages after entering app) */}
+      {activeTab !== 'landing' && <FloatingAIAssistant />}
+
       <ToastContainer />
     </div>
   );
@@ -80,8 +88,10 @@ function AppContent() {
 
 export default function App() {
   return (
-    <RestaurantProvider>
-      <AppContent />
-    </RestaurantProvider>
+    <AuthProvider>
+      <RestaurantProvider>
+        <AppContent />
+      </RestaurantProvider>
+    </AuthProvider>
   );
 }

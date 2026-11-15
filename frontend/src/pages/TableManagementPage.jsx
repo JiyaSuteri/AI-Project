@@ -4,7 +4,7 @@ import { api } from '../services/api';
 import FloorPlan from '../components/FloorPlan';
 import TableDetailsModal from '../components/TableDetailsModal';
 import AddTableModal from '../components/AddTableModal';
-import { LayoutGrid, Plus, Filter, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { LayoutGrid, Plus, Filter, RefreshCw, CheckCircle2, Search } from 'lucide-react';
 
 export default function TableManagementPage() {
   const { refreshIndex, triggerRefresh, addToast, globalSearch } = useRestaurant();
@@ -13,6 +13,7 @@ export default function TableManagementPage() {
   const [selectedTable, setSelectedTable] = useState(null);
   const [showAddModal, setShowAddModal] = useState(false);
   const [filter, setFilter] = useState('ALL');
+  const [localSearch, setLocalSearch] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -34,9 +35,9 @@ export default function TableManagementPage() {
     fetchTables();
   }, [refreshIndex]);
 
+  const q = (localSearch || globalSearch).toLowerCase().trim();
   const displayedTables = tables.filter((t) => {
-    if (!globalSearch) return true;
-    const q = globalSearch.toLowerCase();
+    if (!q) return true;
     return (
       t.table_number.toLowerCase().includes(q) ||
       t.location.toLowerCase().includes(q) ||
@@ -55,26 +56,37 @@ export default function TableManagementPage() {
       {/* Page Title & Actions */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            Floor Plan & Table Management
+          <h1 className="text-xl sm:text-2xl font-bold text-[#28352D] font-serif tracking-tight">
+            Floor Plan &amp; Table Management
           </h1>
-          <p className="text-xs sm:text-sm text-noir-400 mt-0.5">
+          <p className="text-xs sm:text-sm text-stone-500 mt-0.5">
             Configure floor sections, monitor real-time dining tables, and transition operational states.
           </p>
         </div>
 
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center flex-wrap gap-2.5">
+          <div className="relative">
+            <Search className="w-3.5 h-3.5 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={localSearch}
+              onChange={(e) => setLocalSearch(e.target.value)}
+              placeholder="Search table or section..."
+              className="bg-white border border-[#E8E3DA] rounded-xl pl-8 pr-3 py-1.5 text-xs text-[#28352D] shadow-xs focus:outline-none focus:border-[#55745E]"
+            />
+          </div>
+
           <button
             onClick={() => triggerRefresh()}
-            className="p-2 rounded-xl text-noir-300 bg-noir-900/80 hover:bg-noir-850 border border-white/10 shadow-xs transition-colors"
+            className="p-2 rounded-xl text-stone-600 bg-white hover:bg-stone-50 border border-[#E8E3DA] shadow-xs transition-colors cursor-pointer"
             title="Refresh floor tables"
           >
-            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-[#55745E]' : ''}`} />
           </button>
 
           <button
             onClick={() => setShowAddModal(true)}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-champagne-500 to-champagne-600 hover:from-champagne-400 hover:to-champagne-500 text-noir-950 shadow-glow-champagne transition-all"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-[#55745E] hover:bg-[#45604D] text-white shadow-xs transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             Add Table
@@ -94,10 +106,10 @@ export default function TableManagementPage() {
           <button
             key={tab.id}
             onClick={() => setFilter(tab.id)}
-            className={`px-3.5 py-2 rounded-xl font-medium transition-all shrink-0 border ${
+            className={`px-3.5 py-2 rounded-xl font-medium transition-all shrink-0 border cursor-pointer ${
               filter === tab.id
-                ? 'bg-champagne-500/20 text-champagne-300 border-champagne-500/40 shadow-glow-champagne'
-                : 'bg-noir-900/60 hover:bg-noir-850 text-noir-400 border-white/5 hover:text-white'
+                ? 'bg-[#55745E] text-white border-[#55745E] shadow-xs'
+                : 'bg-white hover:bg-stone-50 text-stone-600 border-[#E8E3DA]'
             }`}
           >
             {tab.label}

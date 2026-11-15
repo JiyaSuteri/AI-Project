@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from app.database.session import get_db
 from app.models import RestaurantTable, Waiter, CustomerGroup
 from app.schemas import TableCreate, TableUpdate, TableOut, TableStatusUpdate
+from app.services.auth_service import verify_write_permission
 
 router = APIRouter(prefix="/tables", tags=["Tables"])
 
@@ -31,7 +32,7 @@ def get_tables(status_filter: Optional[str] = None, db: Session = Depends(get_db
     return [enrich_table_out(t) for t in tables]
 
 @router.post("", response_model=TableOut, status_code=status.HTTP_201_CREATED)
-def create_table(payload: TableCreate, db: Session = Depends(get_db)):
+def create_table(payload: TableCreate, db: Session = Depends(get_db), _auth = Depends(verify_write_permission)):
     existing = db.query(RestaurantTable).filter(RestaurantTable.table_number == payload.table_number).first()
     if existing:
         raise HTTPException(status_code=400, detail=f"Table number '{payload.table_number}' already exists.")
@@ -50,7 +51,7 @@ def get_table(table_id: int, db: Session = Depends(get_db)):
     return enrich_table_out(table)
 
 @router.put("/{table_id}", response_model=TableOut)
-def update_table(table_id: int, payload: TableUpdate, db: Session = Depends(get_db)):
+def update_table(table_id: int, payload: TableUpdate, db: Session = Depends(get_db), _auth = Depends(verify_write_permission)):
     table = db.query(RestaurantTable).filter(RestaurantTable.id == table_id).first()
     if not table:
         raise HTTPException(status_code=404, detail="Table not found")
@@ -64,7 +65,7 @@ def update_table(table_id: int, payload: TableUpdate, db: Session = Depends(get_
     return enrich_table_out(table)
 
 @router.put("/{table_id}/status", response_model=TableOut)
-def update_table_status(table_id: int, payload: TableStatusUpdate, db: Session = Depends(get_db)):
+def update_table_status(table_id: int, payload: TableStatusUpdate, db: Session = Depends(get_db), _auth = Depends(verify_write_permission)):
     table = db.query(RestaurantTable).filter(RestaurantTable.id == table_id).first()
     if not table:
         raise HTTPException(status_code=404, detail="Table not found")
@@ -95,7 +96,7 @@ def update_table_status(table_id: int, payload: TableStatusUpdate, db: Session =
     return enrich_table_out(table)
 
 @router.post("/{table_id}/reset", response_model=TableOut)
-def reset_table(table_id: int, db: Session = Depends(get_db)):
+def reset_table(table_id: int, db: Session = Depends(get_db), _auth = Depends(verify_write_permission)):
     table = db.query(RestaurantTable).filter(RestaurantTable.id == table_id).first()
     if not table:
         raise HTTPException(status_code=404, detail="Table not found")
@@ -120,7 +121,7 @@ def reset_table(table_id: int, db: Session = Depends(get_db)):
     return enrich_table_out(table)
 
 @router.delete("/{table_id}")
-def delete_table(table_id: int, db: Session = Depends(get_db)):
+def delete_table(table_id: int, db: Session = Depends(get_db), _auth = Depends(verify_write_permission)):
     table = db.query(RestaurantTable).filter(RestaurantTable.id == table_id).first()
     if not table:
         raise HTTPException(status_code=404, detail="Table not found")

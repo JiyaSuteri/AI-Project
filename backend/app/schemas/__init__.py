@@ -272,5 +272,34 @@ class AIChatResponse(BaseModel):
     relevant_info: List[str] = []
     sources: List[str] = []
     explanation: str
-    suggested_action: str
+    suggested_action: Optional[str] = ""
     is_fallback: bool
+    grounding_type: str = "LIVE_DATABASE"
+    model_used: Optional[str] = None
+
+# ==================== AUTH SCHEMAS ====================
+class GoogleAuthRequest(BaseModel):
+    credential: str = Field(..., description="Google ID Token (JWT) returned by Google Sign-In")
+
+class UserOut(BaseModel):
+    id: int
+    email: str
+    name: str
+    picture: Optional[str] = None
+    role: str = "MANAGER"
+    is_active: bool = True
+    created_at: Optional[datetime] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+    user: UserOut
+
+class AuthStatusResponse(BaseModel):
+    is_authenticated: bool
+    is_guest: bool = False
+    user: Optional[UserOut] = None
+    google_configured: bool = False
+

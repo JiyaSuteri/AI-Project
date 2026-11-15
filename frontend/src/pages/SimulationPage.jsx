@@ -85,6 +85,26 @@ export default function SimulationPage() {
     }
   };
 
+  const handlePause = async () => {
+    try {
+      const res = await api.pauseSimulation();
+      setStatus(res);
+      addToast('Simulation timeline paused.', 'info');
+    } catch (err) {
+      addToast(err.message || 'Simulation pause failed', 'error');
+    }
+  };
+
+  const handleResume = async () => {
+    try {
+      const res = await api.resumeSimulation();
+      setStatus(res);
+      addToast('Simulation timeline resumed.', 'info');
+    } catch (err) {
+      addToast(err.message || 'Simulation resume failed', 'error');
+    }
+  };
+
   const handleReset = async () => {
     try {
       const res = await api.resetSimulation();
@@ -100,38 +120,59 @@ export default function SimulationPage() {
       {/* Title */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+          <h2 className="text-lg sm:text-xl font-bold text-[#28352D] font-serif tracking-tight flex items-center gap-2">
             <span>Multi-Agent Restaurant Simulator</span>
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-950/80 text-emerald-300 font-semibold border border-emerald-500/30">
+            <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#55745E]/10 text-[#55745E] font-semibold border border-[#55745E]/20">
               Discrete-Event Engine
             </span>
-          </h1>
-          <p className="text-xs sm:text-sm text-noir-400 mt-0.5">
+          </h2>
+          <p className="text-xs sm:text-sm text-stone-500 mt-0.5">
             Interacting Customer, Table, Waiter, and Manager agents modeling dining lifecycles and queue patience limits.
           </p>
         </div>
 
-        {/* Action Controls */}
-        <div className="flex items-center gap-2">
+        {/* Action Controls: Start, Step, Pause, Resume, Reset */}
+        <div className="flex items-center gap-2 flex-wrap">
           <button
             onClick={handleStep}
-            className="flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-semibold bg-noir-900 hover:bg-noir-850 text-white border border-white/10 shadow-xs transition-all"
+            className="flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-stone-50 text-[#28352D] border border-[#E8E3DA] shadow-xs transition-all cursor-pointer"
             title="Step forward 1 second"
           >
-            <FastForward className="w-3.5 h-3.5 text-champagne-400" />
+            <FastForward className="w-3.5 h-3.5 text-[#55745E]" />
             Step +1s
           </button>
+          
+          {status?.is_paused ? (
+            <button
+              onClick={handleResume}
+              className="flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-stone-50 text-[#55745E] border border-[#55745E]/30 shadow-xs transition-all cursor-pointer"
+              title="Resume simulation clock"
+            >
+              <Play className="w-3.5 h-3.5 text-[#55745E]" />
+              Resume
+            </button>
+          ) : (
+            <button
+              onClick={handlePause}
+              className="flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-stone-50 text-stone-600 border border-[#E8E3DA] shadow-xs transition-all cursor-pointer"
+              title="Pause simulation clock"
+            >
+              <Pause className="w-3.5 h-3.5 text-stone-500" />
+              Pause
+            </button>
+          )}
+
           <button
             onClick={handleReset}
-            className="flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-semibold bg-noir-900 hover:bg-noir-850 text-white border border-white/10 shadow-xs transition-all"
+            className="flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-stone-50 text-stone-600 border border-[#E8E3DA] shadow-xs transition-all cursor-pointer"
           >
-            <RotateCcw className="w-3.5 h-3.5 text-noir-400" />
+            <RotateCcw className="w-3.5 h-3.5 text-stone-400" />
             Reset
           </button>
           <button
             onClick={handleStart}
             disabled={loading}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-champagne-500 to-champagne-600 hover:from-champagne-400 hover:to-champagne-500 text-noir-950 shadow-glow-champagne transition-all disabled:opacity-50"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-[#55745E] hover:bg-[#45604D] text-white shadow-xs transition-all disabled:opacity-50 cursor-pointer"
           >
             <Play className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
             {loading ? 'Simulating...' : 'Run Full Simulation'}
@@ -140,31 +181,31 @@ export default function SimulationPage() {
       </div>
 
       {/* Configuration Parameters Card */}
-      <div className="glass-panel rounded-3xl p-5 sm:p-6 border border-white/10 shadow-3d-card space-y-4">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-champagne-400">
-          <Sliders className="w-4 h-4 text-champagne-400" />
+      <div className="bg-white rounded-3xl p-5 sm:p-6 border border-[#E8E3DA] shadow-xs space-y-4">
+        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#55745E]">
+          <Sliders className="w-4 h-4 text-[#55745E]" />
           <span>Configurable Simulation Parameters</span>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           <div>
-            <label className="block text-[11px] font-semibold text-noir-300 mb-1">Customer Parties</label>
+            <label className="block text-[11px] font-semibold text-stone-500 mb-1">Customer Parties</label>
             <input
               type="number"
               min="2"
               max="30"
               value={customerCount}
               onChange={(e) => setCustomerCount(e.target.value)}
-              className="w-full bg-noir-900 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-champagne-500 font-semibold"
+              className="w-full bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl px-3 py-1.5 text-xs text-[#28352D] focus:outline-none focus:border-[#55745E] font-semibold"
             />
           </div>
 
           <div>
-            <label className="block text-[11px] font-semibold text-noir-300 mb-1">AI Algorithm</label>
+            <label className="block text-[11px] font-semibold text-stone-500 mb-1">AI Algorithm</label>
             <select
               value={algorithm}
               onChange={(e) => setAlgorithm(e.target.value)}
-              className="w-full bg-noir-900 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-champagne-500 font-semibold"
+              className="w-full bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl px-3 py-1.5 text-xs text-[#28352D] focus:outline-none focus:border-[#55745E] font-semibold"
             >
               <option value="A_STAR">A* Search</option>
               <option value="GREEDY">Greedy Search</option>
@@ -175,7 +216,7 @@ export default function SimulationPage() {
           </div>
 
           <div>
-            <label className="block text-[11px] font-semibold text-noir-300 mb-1">Arrival Interval (s)</label>
+            <label className="block text-[11px] font-semibold text-stone-500 mb-1">Arrival Interval (s)</label>
             <input
               type="number"
               step="0.5"
@@ -183,41 +224,41 @@ export default function SimulationPage() {
               max="10"
               value={arrivalInterval}
               onChange={(e) => setArrivalInterval(e.target.value)}
-              className="w-full bg-noir-900 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-champagne-500"
+              className="w-full bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl px-3 py-1.5 text-xs text-[#28352D] focus:outline-none focus:border-[#55745E]"
             />
           </div>
 
           <div>
-            <label className="block text-[11px] font-semibold text-noir-300 mb-1">Dining Duration (s)</label>
+            <label className="block text-[11px] font-semibold text-stone-500 mb-1">Dining Duration (s)</label>
             <input
               type="number"
               min="2"
               max="30"
               value={serviceDuration}
               onChange={(e) => setServiceDuration(e.target.value)}
-              className="w-full bg-noir-900 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-champagne-500"
+              className="w-full bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl px-3 py-1.5 text-xs text-[#28352D] focus:outline-none focus:border-[#55745E]"
             />
           </div>
 
           <div>
-            <label className="block text-[11px] font-semibold text-noir-300 mb-1">Cleaning Turnover (s)</label>
+            <label className="block text-[11px] font-semibold text-stone-500 mb-1">Cleaning Turnover (s)</label>
             <input
               type="number"
               min="1"
               max="15"
               value={cleaningDuration}
               onChange={(e) => setCleaningDuration(e.target.value)}
-              className="w-full bg-noir-900 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-champagne-500"
+              className="w-full bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl px-3 py-1.5 text-xs text-[#28352D] focus:outline-none focus:border-[#55745E]"
             />
           </div>
 
           <div>
-            <label className="block text-[11px] font-semibold text-noir-300 mb-1">Random Seed</label>
+            <label className="block text-[11px] font-semibold text-stone-500 mb-1">Random Seed</label>
             <input
               type="number"
               value={randomSeed}
               onChange={(e) => setRandomSeed(e.target.value)}
-              className="w-full bg-noir-900 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-champagne-300 focus:outline-none focus:border-champagne-500 font-mono"
+              className="w-full bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl px-3 py-1.5 text-xs text-[#28352D] focus:outline-none focus:border-[#55745E] font-mono"
             />
           </div>
         </div>
@@ -225,83 +266,83 @@ export default function SimulationPage() {
 
       {/* Live Timeline & Real-Time Counters */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-        <div className="p-4 rounded-2xl glass-panel border border-white/10 shadow-xs">
-          <span className="text-[10px] text-noir-400 uppercase font-semibold block">Virtual Clock</span>
-          <span className="text-xl font-bold text-champagne-300 font-mono">
+        <div className="p-4 rounded-2xl bg-white border border-[#E8E3DA] shadow-xs">
+          <span className="text-[10px] text-stone-500 uppercase font-semibold block">Virtual Clock</span>
+          <span className="text-xl font-bold text-[#55745E] font-mono">
             {status?.current_time_sec ?? 0.0}s
           </span>
         </div>
-        <div className="p-4 rounded-2xl glass-panel border border-white/10 shadow-xs">
-          <span className="text-[10px] text-noir-400 uppercase font-semibold block">Total Customers</span>
-          <span className="text-xl font-bold text-white">
+        <div className="p-4 rounded-2xl bg-white border border-[#E8E3DA] shadow-xs">
+          <span className="text-[10px] text-stone-500 uppercase font-semibold block">Total Customers</span>
+          <span className="text-xl font-bold text-[#28352D]">
             {status?.total_customers ?? 0}
           </span>
         </div>
-        <div className="p-4 rounded-2xl glass-panel border border-white/10 shadow-xs">
-          <span className="text-[10px] text-emerald-400 uppercase font-semibold block">Successfully Seated</span>
-          <span className="text-xl font-bold text-emerald-400">
+        <div className="p-4 rounded-2xl bg-white border border-[#E8E3DA] shadow-xs">
+          <span className="text-[10px] text-[#55745E] uppercase font-semibold block">Successfully Seated</span>
+          <span className="text-xl font-bold text-[#55745E]">
             {status?.allocated_customers ?? 0}
           </span>
         </div>
-        <div className="p-4 rounded-2xl glass-panel border border-white/10 shadow-xs">
-          <span className="text-[10px] text-amber-400 uppercase font-semibold block">In Waiting Queue</span>
-          <span className="text-xl font-bold text-amber-300">
+        <div className="p-4 rounded-2xl bg-white border border-[#E8E3DA] shadow-xs">
+          <span className="text-[10px] text-amber-600 uppercase font-semibold block">In Waiting Queue</span>
+          <span className="text-xl font-bold text-amber-700">
             {status?.waiting_customers ?? 0}
           </span>
         </div>
-        <div className="p-4 rounded-2xl glass-panel border border-white/10 shadow-xs">
-          <span className="text-[10px] text-rose-400 uppercase font-semibold block">Reneged (Patience)</span>
-          <span className="text-xl font-bold text-rose-400">
+        <div className="p-4 rounded-2xl bg-white border border-[#E8E3DA] shadow-xs">
+          <span className="text-[10px] text-rose-600 uppercase font-semibold block">Reneged (Patience)</span>
+          <span className="text-xl font-bold text-rose-600">
             {status?.reneged_customers ?? 0}
           </span>
         </div>
       </div>
 
       {/* Live Event Stream Timeline */}
-      <div className="glass-panel rounded-3xl p-5 sm:p-6 border border-white/10 shadow-3d-card space-y-4">
+      <div className="bg-white rounded-3xl p-5 sm:p-6 border border-[#E8E3DA] shadow-xs space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-sm font-bold text-white">Live Agent Event Stream</h3>
-            <p className="text-xs text-noir-400">Autonomous discrete events generated by Customer, Table, and Waiter agents</p>
+            <h3 className="text-sm font-bold text-[#28352D] font-serif">Live Agent Event Stream</h3>
+            <p className="text-xs text-stone-500">Autonomous discrete events generated by Customer, Table, and Waiter agents</p>
           </div>
-          <span className="text-xs font-mono font-medium text-champagne-400">
+          <span className="text-xs font-mono font-medium text-[#55745E]">
             {status?.events?.length || 0} events logged
           </span>
         </div>
 
         <div className="max-h-96 overflow-y-auto space-y-2 pr-1">
           {(!status?.events || status.events.length === 0) ? (
-            <div className="p-12 text-center text-xs text-noir-500 bg-noir-900/60 rounded-2xl border border-white/5">
+            <div className="p-12 text-center text-xs text-stone-400 bg-[#FAF7F2] rounded-2xl border border-[#E8E3DA]">
               No simulation events recorded yet. Click "Run Full Simulation" or "Step +1s" to begin.
             </div>
           ) : (
             status.events.map((ev, idx) => {
-              let badge = 'bg-noir-850 text-noir-300 border-white/10';
+              let badge = 'bg-stone-100 text-stone-600 border-stone-200';
               let icon = <Activity className="w-3.5 h-3.5" />;
 
               if (ev.event_type === 'ARRIVAL') {
-                badge = 'bg-amber-950/80 text-amber-300 border-amber-500/30';
-                icon = <Users className="w-3.5 h-3.5 text-amber-400" />;
+                badge = 'bg-amber-50 text-amber-800 border-amber-200';
+                icon = <Users className="w-3.5 h-3.5 text-amber-600" />;
               } else if (ev.event_type === 'ALLOCATED') {
-                badge = 'bg-emerald-950/80 text-emerald-300 border-emerald-500/30';
-                icon = <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />;
+                badge = 'bg-[#55745E]/10 text-[#55745E] border-[#55745E]/20';
+                icon = <CheckCircle2 className="w-3.5 h-3.5 text-[#55745E]" />;
               } else if (ev.event_type === 'SERVICE_DONE') {
-                badge = 'bg-blue-950/80 text-blue-300 border-blue-500/30';
-                icon = <Clock className="w-3.5 h-3.5 text-blue-400" />;
+                badge = 'bg-blue-50 text-blue-800 border-blue-200';
+                icon = <Clock className="w-3.5 h-3.5 text-blue-600" />;
               } else if (ev.event_type === 'CLEANING_DONE') {
-                badge = 'bg-sky-950/80 text-sky-300 border-sky-500/30';
-                icon = <Sparkles className="w-3.5 h-3.5 text-sky-400" />;
+                badge = 'bg-sky-50 text-sky-800 border-sky-200';
+                icon = <Sparkles className="w-3.5 h-3.5 text-sky-600" />;
               } else if (ev.event_type === 'RENEGED') {
-                badge = 'bg-rose-950/80 text-rose-300 border-rose-500/30';
-                icon = <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />;
+                badge = 'bg-rose-50 text-rose-700 border-rose-200';
+                icon = <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />;
               }
 
               return (
                 <div
                   key={idx}
-                  className="p-3 rounded-2xl bg-noir-900/60 border border-white/5 flex items-start gap-3 text-xs hover:border-white/10 transition-colors"
+                  className="p-3 rounded-2xl bg-[#FAF7F2] border border-[#E8E3DA] flex items-start gap-3 text-xs hover:border-[#55745E]/30 transition-colors"
                 >
-                  <span className="font-mono text-champagne-400 text-[11px] w-12 shrink-0 pt-0.5">
+                  <span className="font-mono text-[#55745E] text-[11px] w-12 shrink-0 pt-0.5">
                     {ev.timestamp_sec.toFixed(1)}s
                   </span>
 
@@ -309,7 +350,7 @@ export default function SimulationPage() {
                     {ev.event_type}
                   </span>
 
-                  <div className="flex-1 text-noir-200 font-medium leading-snug">
+                  <div className="flex-1 text-[#28352D] font-medium leading-snug">
                     {ev.description}
                   </div>
                 </div>
@@ -320,16 +361,16 @@ export default function SimulationPage() {
       </div>
 
       {/* Historical Simulation Records Table */}
-      <div className="glass-panel rounded-3xl p-5 sm:p-6 border border-white/10 shadow-3d-card">
+      <div className="bg-white rounded-3xl p-5 sm:p-6 border border-[#E8E3DA] shadow-xs">
         <div className="flex items-center gap-2 mb-3">
-          <History className="w-4 h-4 text-champagne-400" />
-          <h3 className="text-sm font-bold text-white">Historical Simulation Runs</h3>
+          <History className="w-4 h-4 text-[#55745E]" />
+          <h3 className="text-sm font-bold text-[#28352D] font-serif">Historical Simulation Runs</h3>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="bg-noir-900/80 border-b border-white/10 text-noir-400 font-semibold uppercase text-[10px]">
+              <tr className="bg-[#FAF7F2] border-b border-[#E8E3DA] text-stone-500 font-semibold uppercase text-[10px]">
                 <th className="py-2.5 px-3">Run Name</th>
                 <th className="py-2.5 px-3">Algorithm</th>
                 <th className="py-2.5 px-3">Customers</th>
@@ -339,27 +380,27 @@ export default function SimulationPage() {
                 <th className="py-2.5 px-3">Utilization</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5 text-noir-200">
+            <tbody className="divide-y divide-[#E8E3DA] text-[#28352D]">
               {history.length === 0 ? (
                 <tr>
-                  <td colSpan="7" className="py-6 text-center text-noir-500">
+                  <td colSpan="7" className="py-6 text-center text-stone-400">
                     No simulation records persisted in database yet.
                   </td>
                 </tr>
               ) : (
                 history.map((h) => (
-                  <tr key={h.id} className="hover:bg-white/5">
-                    <td className="py-2.5 px-3 font-semibold text-white">{h.simulation_name}</td>
+                  <tr key={h.id} className="hover:bg-stone-50/80">
+                    <td className="py-2.5 px-3 font-semibold text-[#28352D]">{h.simulation_name}</td>
                     <td className="py-2.5 px-3">
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-noir-850 text-noir-300 border border-white/10">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FAF7F2] text-stone-600 border border-[#E8E3DA]">
                         {h.algorithm}
                       </span>
                     </td>
                     <td className="py-2.5 px-3">{h.total_customers}</td>
-                    <td className="py-2.5 px-3 font-semibold text-emerald-400">{h.successful_allocations}</td>
+                    <td className="py-2.5 px-3 font-semibold text-[#55745E]">{h.successful_allocations}</td>
                     <td className="py-2.5 px-3 font-mono">{h.average_waiting_time}s</td>
                     <td className="py-2.5 px-3 font-mono">{h.execution_time}ms</td>
-                    <td className="py-2.5 px-3 font-semibold text-champagne-300">{h.utilization}%</td>
+                    <td className="py-2.5 px-3 font-semibold text-[#916E32]">{h.utilization}%</td>
                   </tr>
                 ))
               )}
