@@ -1138,36 +1138,11 @@
       <li><strong>Queue Abandonment (Reneging):</strong> When waiting parties perceive disorganized seating priorities or experience wait times exceeding their psychological patience threshold, walkout rates surge to 18–25%.</li>
     </ul>
 
-    <!-- FIGURE 1.1 DIAGRAM -->
-    <div style="border: 1px solid #CBD5E1; border-radius: 5px; padding: 10px 14px; background: #FFFFFF; margin: 8px 0;">
-      <div style="text-align: center; font-size: 9.5px; font-weight: 800; color: #E65100; text-transform: uppercase; margin-bottom: 6px;">
-        CONVENTIONAL DINING ROOM OPERATIONAL BOTTLENECKS
-      </div>
-      <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
-        <div style="flex: 1; border: 1.5px solid #0D2040; border-radius: 4px; padding: 6px; text-align: center; background: #F8FAFC;">
-          <div style="font-weight: 800; color: #0D2040; font-size: 10px;">Queue Arrival</div>
-          <div style="font-size: 8.5px; color: #64748B;">Party of 2 Walk-In</div>
-        </div>
-        <div style="color: #E65100; font-weight: 800; font-size: 14px;">&rarr;</div>
-        <div style="flex: 1.4; border: 1.5px dashed #DC2626; border-radius: 4px; padding: 6px; text-align: center; background: #FEF2F2;">
-          <div style="font-weight: 800; color: #DC2626; font-size: 10px;">Manual Host Assignment</div>
-          <div style="font-size: 8.5px; color: #991B1B;">Seats 2-top at 8-top Table!</div>
-          <div style="font-size: 8px; color: #B91C1C;">6 Seats Wasted</div>
-        </div>
-        <div style="color: #DC2626; font-weight: 800; font-size: 14px;">&rarr;</div>
-        <div style="flex: 1.2; border: 1.5px solid #DC2626; border-radius: 4px; padding: 6px; text-align: center; background: #FEF2F2;">
-          <div style="font-weight: 800; color: #DC2626; font-size: 10px;">Server Bottleneck</div>
-          <div style="font-size: 8.5px; color: #991B1B;">Server A: 5 Tables (125% Load)</div>
-          <div style="font-size: 8px; color: #B91C1C;">Server B: 1 Table (25% Load)</div>
-        </div>
-        <div style="color: #DC2626; font-weight: 800; font-size: 14px;">&rarr;</div>
-        <div style="flex: 1.2; border: 1.5px solid #991B1B; border-radius: 4px; padding: 6px; text-align: center; background: #FEF2F2;">
-          <div style="font-weight: 800; color: #991B1B; font-size: 10px;">Customer Walkout</div>
-          <div style="font-size: 8.5px; color: #7F1D1D;">Party of 6 leaves (Wait &gt; 45m)</div>
-        </div>
-      </div>
+    <!-- FIGURE 1.1 SCREENSHOT -->
+    <div style="text-align: center; margin: 6px 0;">
+      <img src="images/fig_landing.png" style="width: 80%; max-height: 135px; object-fit: contain; border: 1px solid #CBD5E1; border-radius: 4px;">
     </div>
-    <div class="fig-caption">Figure 1.1: Physical Dining Room Operational Inefficiency: Walkouts, Capacity Waste &amp; Backtracking</div>
+    <div class="fig-caption">Figure 1.1: Saffron &amp; Sage | AI Bistro — Welcome Portal, Google Authentication &amp; Guest Access Interface</div>
 
     <div class="subsec-heading">1.1.3 Limitations of Conventional POS Systems &amp; Chatbots</div>
     <p>
@@ -1856,25 +1831,11 @@
       <strong>Proof of Optimality:</strong> Because \( h(n) \) computes the absolute theoretical minimum capacity differential while ignoring server congestion and location penalties, \( h(n) \le h^*(n) \) holds strictly for all states. Since \( h(n) \) never overestimates the true remaining cost, A* tree search is provably admissible and optimal.
     </p>
 
-    <!-- FIGURE 4.1 SEARCH TREE -->
-    <div style="border: 1px solid #CBD5E1; border-radius: 5px; padding: 8px 12px; background: #FFFFFF; margin: 6px 0; text-align: center;">
-      <div style="display: flex; justify-content: center; align-items: center; gap: 14px; font-size: 8.5px;">
-        <div style="border: 1.5px solid #0D2040; border-radius: 4px; padding: 4px 8px; background: #F8FAFC;">
-          <strong>Root Node</strong><br>Waiting Queue [C1, C2]
-        </div>
-        <div style="color: #E65100; font-weight: 800;">&rarr;</div>
-        <div style="border: 1.5px solid #0284C7; border-radius: 4px; padding: 4px 8px; background: #F0F9FF;">
-          <strong>Branch: C1 &rarr; T01</strong><br>g=2, h=3, f=5
-        </div>
-        <div style="border: 1.5px solid #E65100; border-radius: 4px; padding: 4px 8px; background: #FFF7ED;">
-          <strong>Branch: C1 &rarr; T04</strong><br>g=0, h=2, f=2 (A* Optimal)
-        </div>
-        <div style="border: 1.5px solid #DC2626; border-radius: 4px; padding: 4px 8px; background: #FEF2F2;">
-          <strong>Branch: C1 &rarr; T08</strong><br>g=6, h=1, f=7 (Pruned)
-        </div>
-      </div>
+    <!-- FIGURE 4.1 SCREENSHOT -->
+    <div style="text-align: center; margin: 6px 0;">
+      <img src="images/fig_smart_allocation.png" style="width: 80%; max-height: 135px; object-fit: contain; border: 1px solid #CBD5E1; border-radius: 4px;">
     </div>
-    <div class="fig-caption">Figure 4.1: State-Space Search Tree &amp; Priority Queue Branch-and-Bound Traversal in A*</div>
+    <div class="fig-caption">Figure 4.1: Smart Table Allocation Engine — Interactive Recommendation Card &amp; Explanation</div>
   </div>
   <div class="running-footer">
     <span>Department of Computer Science &amp; Engineering — Lovely Professional University</span>
@@ -1911,31 +1872,11 @@
       <li><strong>Dual-Inference Execution:</strong> Queries are evaluated against vector embeddings via cosine similarity. Top-scoring policy passages are assembled into prompt context. If a valid Groq API key is present, inference executes on Groq LPU (<code>openai/gpt-oss-120b</code>). If offline or API fails, the system executes an automated fallback query over live SQLite tables, ensuring zero hallucination.</li>
     </ol>
 
-    <!-- FIGURE 4.2 RAG PIPELINE -->
-    <div style="border: 1px solid #CBD5E1; border-radius: 5px; padding: 10px; background: #FFFFFF; margin: 8px 0;">
-      <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
-        <div style="flex: 1; border: 1.5px solid #0D2040; border-radius: 4px; padding: 6px; text-align: center; background: #F8FAFC;">
-          <div style="font-weight: 800; font-size: 9px; color: #0D2040;">User Inquiry</div>
-          <div style="font-size: 8px; color: #475569;">"Are window tables open?"</div>
-        </div>
-        <div style="color: #E65100; font-weight: 800;">&rarr;</div>
-        <div style="flex: 1.2; border: 1.5px solid #0D2040; border-radius: 4px; padding: 6px; text-align: center; background: #F8FAFC;">
-          <div style="font-weight: 800; font-size: 9px; color: #0D2040;">TF-IDF Retrieval</div>
-          <div style="font-size: 8px; color: #475569;">Extracts Policy &amp; Rules</div>
-        </div>
-        <div style="color: #E65100; font-weight: 800;">&rarr;</div>
-        <div style="flex: 1.4; border: 1.5px solid #00796B; border-radius: 4px; padding: 6px; text-align: center; background: #F0FDF4;">
-          <div style="font-weight: 800; font-size: 9px; color: #00796B;">Live DB Grounding</div>
-          <div style="font-size: 8px; color: #166534;">Queries SQLite Tables</div>
-        </div>
-        <div style="color: #E65100; font-weight: 800;">&rarr;</div>
-        <div style="flex: 1.2; border: 1.5px solid #E65100; border-radius: 4px; padding: 6px; text-align: center; background: #FFF7ED;">
-          <div style="font-weight: 800; font-size: 9px; color: #E65100;">Groq LPU Synthesis</div>
-          <div style="font-size: 8px; color: #9A3412;">Clean Grounded Answer</div>
-        </div>
-      </div>
+    <!-- FIGURE 4.2 SCREENSHOT -->
+    <div style="text-align: center; margin: 6px 0;">
+      <img src="images/fig_ai_assistant.png" style="width: 80%; max-height: 135px; object-fit: contain; border: 1px solid #CBD5E1; border-radius: 4px;">
     </div>
-    <div class="fig-caption">Figure 4.2: Grounded RAG Retrieval, TF-IDF Vector Indexing &amp; Dual-Inference Generation Pipeline</div>
+    <div class="fig-caption">Figure 4.2: Grounded RAG Conversational Assistant with Groq LPU Inference &amp; Live SQLite Grounding</div>
 
     <table class="report-table">
       <thead>
@@ -2073,21 +2014,11 @@
       <li><strong>Floating RAG Conversational AI Assistant:</strong> Global drawer offering real-time streaming dialogue, quick prompt chips, and zero hallucination responses.</li>
     </ul>
 
-    <!-- 3-Option Authentication Portal Cards -->
-    <div style="display: flex; gap: 8px; margin-top: 10px;">
-      <div style="flex: 1; border: 1.5px solid #0D2040; border-radius: 4px; padding: 8px; background: #F8FAFC; text-align: center;">
-        <div style="font-weight: 800; color: #0D2040; font-size: 10px;">Option 1: Google Sign-In</div>
-        <div style="font-size: 8.5px; color: #475569; margin-top: 3px;">Verifies OAuth 2.0 JWT identity, stores verified email, and grants persistent Manager role.</div>
-      </div>
-      <div style="flex: 1; border: 1.5px solid #00796B; border-radius: 4px; padding: 8px; background: #F0FDF4; text-align: center;">
-        <div style="font-weight: 800; color: #00796B; font-size: 10px;">Option 2: Manager Credentials</div>
-        <div style="font-size: 8.5px; color: #475569; margin-top: 3px;">Local username/password authentication for on-premise hosts and restaurant staff.</div>
-      </div>
-      <div style="flex: 1; border: 1.5px solid #E65100; border-radius: 4px; padding: 8px; background: #FFF7ED; text-align: center;">
-        <div style="font-weight: 800; color: #E65100; font-size: 10px;">Option 3: Guest Mode</div>
-        <div style="font-size: 8.5px; color: #475569; margin-top: 3px;">Instant zero-friction access; operates with isolated demo data without modifying live database.</div>
-      </div>
+    <!-- FIGURE 5.1 SCREENSHOT -->
+    <div style="text-align: center; margin: 6px 0;">
+      <img src="images/fig_floor_plan.png" style="width: 80%; max-height: 135px; object-fit: contain; border: 1px solid #CBD5E1; border-radius: 4px;">
     </div>
+    <div class="fig-caption">Figure 5.1: Interactive 2D Dining Floor Plan Canvas with Seated Parties &amp; Server Badges</div>
   </div>
   <div class="running-footer">
     <span>Department of Computer Science &amp; Engineering — Lovely Professional University</span>
@@ -2349,6 +2280,12 @@ tests\test_phase4_dashboard_algorithms.py ....                           [100%]
     </table>
     <div class="table-caption">Table 7.2: Complete RESTful API Endpoint Verification Matrix (25+ Endpoints)</div>
 
+    <!-- FIGURE 7.1 SCREENSHOT -->
+    <div style="text-align: center; margin: 4px 0;">
+      <img src="images/fig_reservations.png" style="width: 80%; max-height: 125px; object-fit: contain; border: 1px solid #CBD5E1; border-radius: 4px;">
+    </div>
+    <div class="fig-caption">Figure 7.1: Reservation Management Desk with Live Seating Verification &amp; Table Assignment</div>
+
     <div class="sec-heading">7.3 Security Audits: Google OAuth, RBAC &amp; Secret Isolation</div>
     <p>
       Security verification confirmed that all production secrets (Groq API keys, Google Client IDs) are strictly isolated in non-committed <code class="badge-code">.env</code> files. Protected endpoints enforce write-permission authorization, rejecting unauthenticated mutators with HTTP 401 Unauthorized.
@@ -2427,40 +2364,11 @@ tests\test_phase4_dashboard_algorithms.py ....                           [100%]
     </table>
     <div class="table-caption">Table 8.1: 5-Algorithm Performance Benchmarking Across Identical Customer Batches</div>
 
-    <!-- FIGURE 8.1 BENCHMARK CHART -->
-    <div style="border: 1px solid #CBD5E1; border-radius: 5px; padding: 10px; background: #FFFFFF; margin: 8px 0;">
-      <div style="font-size: 9px; font-weight: 800; color: #0D2040; text-align: center; margin-bottom: 6px;">
-        CAPACITY WASTE COMPARISON ACROSS ALGORITHMS (SEATS WASTED)
-      </div>
-      <div style="display: flex; align-items: flex-end; justify-content: space-around; height: 65px; border-bottom: 1px solid #94A3B8; padding-bottom: 4px;">
-        <div style="text-align: center;">
-          <div style="font-size: 8px; font-weight: 700; color: #DC2626;">16</div>
-          <div style="width: 32px; height: 44px; background: #F87171; border-radius: 2px 2px 0 0; margin: 0 auto;"></div>
-          <div style="font-size: 7.5px; color: #475569; margin-top: 3px;">Rule-Based</div>
-        </div>
-        <div style="text-align: center;">
-          <div style="font-size: 8px; font-weight: 700; color: #EA580C;">12</div>
-          <div style="width: 32px; height: 33px; background: #FB923C; border-radius: 2px 2px 0 0; margin: 0 auto;"></div>
-          <div style="font-size: 7.5px; color: #475569; margin-top: 3px;">Greedy</div>
-        </div>
-        <div style="text-align: center;">
-          <div style="font-size: 8px; font-weight: 700; color: #0284C7;">14</div>
-          <div style="width: 32px; height: 38px; background: #38BDF8; border-radius: 2px 2px 0 0; margin: 0 auto;"></div>
-          <div style="font-size: 7.5px; color: #475569; margin-top: 3px;">BFS</div>
-        </div>
-        <div style="text-align: center;">
-          <div style="font-size: 8px; font-weight: 700; color: #DC2626;">18</div>
-          <div style="width: 32px; height: 50px; background: #EF4444; border-radius: 2px 2px 0 0; margin: 0 auto;"></div>
-          <div style="font-size: 7.5px; color: #475569; margin-top: 3px;">DFS</div>
-        </div>
-        <div style="text-align: center;">
-          <div style="font-size: 8px; font-weight: 800; color: #16A34A;">8</div>
-          <div style="width: 32px; height: 22px; background: #4ADE80; border-radius: 2px 2px 0 0; margin: 0 auto;"></div>
-          <div style="font-size: 7.5px; font-weight: 700; color: #15803D; margin-top: 3px;">A* (Optimal)</div>
-        </div>
-      </div>
+    <!-- FIGURE 8.1 SCREENSHOT -->
+    <div style="text-align: center; margin: 4px 0;">
+      <img src="images/fig_algorithms.png" style="width: 80%; max-height: 125px; object-fit: contain; border: 1px solid #CBD5E1; border-radius: 4px;">
     </div>
-    <div class="fig-caption">Figure 8.1: Empirical Benchmark: Search Execution Latency vs. Seating Capacity Waste Across 5 Algorithms</div>
+    <div class="fig-caption">Figure 8.1: Advanced Tools Algorithm Comparison — Benchmarking Search Metrics in Real Time</div>
 
     <div class="sec-heading">8.2 AI Conversational Latency &amp; Tool Execution Throughput</div>
     <p>
@@ -2572,6 +2480,12 @@ tests\test_phase4_dashboard_algorithms.py ....                           [100%]
         <span style="font-size: 9.5px;"><strong>Production-Verified Cloud Resilience:</strong> 100% statement passing across 28 automated pytest test cases, zero race conditions on concurrent reservation seating, and live deployment on GitHub Pages.</span>
       </div>
     </div>
+
+    <!-- FIGURE 10.1 SCREENSHOT -->
+    <div style="text-align: center; margin: 4px 0;">
+      <img src="images/fig_dashboard.png" style="width: 80%; max-height: 125px; object-fit: contain; border: 1px solid #CBD5E1; border-radius: 4px;">
+    </div>
+    <div class="fig-caption">Figure 10.1: Saffron &amp; Sage Production Dashboard Overview with Active Dining Telemetry</div>
 
     <div class="highlight-card" style="margin-top: auto;">
       <strong style="color: #9A3412;">Concluding Impact:</strong>

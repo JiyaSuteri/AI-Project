@@ -112,36 +112,11 @@ def get_pages_9_to_16():
       <li><strong>Queue Abandonment (Reneging):</strong> When waiting parties perceive disorganized seating priorities or experience wait times exceeding their psychological patience threshold, walkout rates surge to 18–25%.</li>
     </ul>
 
-    <!-- FIGURE 1.1 DIAGRAM -->
-    <div style="border: 1px solid #CBD5E1; border-radius: 5px; padding: 10px 14px; background: #FFFFFF; margin: 8px 0;">
-      <div style="text-align: center; font-size: 9.5px; font-weight: 800; color: #E65100; text-transform: uppercase; margin-bottom: 6px;">
-        CONVENTIONAL DINING ROOM OPERATIONAL BOTTLENECKS
-      </div>
-      <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
-        <div style="flex: 1; border: 1.5px solid #0D2040; border-radius: 4px; padding: 6px; text-align: center; background: #F8FAFC;">
-          <div style="font-weight: 800; color: #0D2040; font-size: 10px;">Queue Arrival</div>
-          <div style="font-size: 8.5px; color: #64748B;">Party of 2 Walk-In</div>
-        </div>
-        <div style="color: #E65100; font-weight: 800; font-size: 14px;">&rarr;</div>
-        <div style="flex: 1.4; border: 1.5px dashed #DC2626; border-radius: 4px; padding: 6px; text-align: center; background: #FEF2F2;">
-          <div style="font-weight: 800; color: #DC2626; font-size: 10px;">Manual Host Assignment</div>
-          <div style="font-size: 8.5px; color: #991B1B;">Seats 2-top at 8-top Table!</div>
-          <div style="font-size: 8px; color: #B91C1C;">6 Seats Wasted</div>
-        </div>
-        <div style="color: #DC2626; font-weight: 800; font-size: 14px;">&rarr;</div>
-        <div style="flex: 1.2; border: 1.5px solid #DC2626; border-radius: 4px; padding: 6px; text-align: center; background: #FEF2F2;">
-          <div style="font-weight: 800; color: #DC2626; font-size: 10px;">Server Bottleneck</div>
-          <div style="font-size: 8.5px; color: #991B1B;">Server A: 5 Tables (125% Load)</div>
-          <div style="font-size: 8px; color: #B91C1C;">Server B: 1 Table (25% Load)</div>
-        </div>
-        <div style="color: #DC2626; font-weight: 800; font-size: 14px;">&rarr;</div>
-        <div style="flex: 1.2; border: 1.5px solid #991B1B; border-radius: 4px; padding: 6px; text-align: center; background: #FEF2F2;">
-          <div style="font-weight: 800; color: #991B1B; font-size: 10px;">Customer Walkout</div>
-          <div style="font-size: 8.5px; color: #7F1D1D;">Party of 6 leaves (Wait &gt; 45m)</div>
-        </div>
-      </div>
+    <!-- FIGURE 1.1 SCREENSHOT -->
+    <div style="text-align: center; margin: 6px 0;">
+      <img src="images/fig_landing.png" style="width: 80%; max-height: 135px; object-fit: contain; border: 1px solid #CBD5E1; border-radius: 4px;">
     </div>
-    <div class="fig-caption">Figure 1.1: Physical Dining Room Operational Inefficiency: Walkouts, Capacity Waste &amp; Backtracking</div>
+    <div class="fig-caption">Figure 1.1: Saffron &amp; Sage | AI Bistro — Welcome Portal, Google Authentication &amp; Guest Access Interface</div>
 
     <div class="subsec-heading">1.1.3 Limitations of Conventional POS Systems &amp; Chatbots</div>
     <p>
