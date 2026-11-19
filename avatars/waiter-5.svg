@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="w5bg" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F2E6DF"/>
+      <stop offset="100%" stop-color="#E2D0C5"/>
+    </linearGradient>
+    <linearGradient id="w5wrap" x1="20" y1="10" x2="80" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#C47A59"/>
+      <stop offset="100%" stop-color="#9C5233"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="100" height="100" rx="28" fill="url(#w5bg)"/>
+
+  <!-- Uniform: Bistro Apron & Neckerchief -->
+  <path d="M22 100 C22 76 34 71 50 71 C66 71 78 76 78 100 Z" fill="#28352D"/>
+  <path d="M42 71 L50 82 L58 71 Z" fill="#FAF7F2"/>
+  <path d="M48 74 L50 84 L52 74 Z" fill="#7EA98B"/>
+
+  <!-- Neck -->
+  <path d="M44 58 L44 71 C46 73 54 73 56 71 L56 58 Z" fill="#C68962"/>
+
+  <!-- Elegant Headwrap / Crown -->
+  <circle cx="50" cy="27" r="18" fill="url(#w5wrap)"/>
+  <path d="M30 35 C30 20 40 14 50 14 C60 14 70 20 70 35 L70 42 C66 38 60 36 50 36 C40 36 34 38 30 42 Z" fill="url(#w5wrap)"/>
+  <!-- Gold Headwrap Pin -->
+  <circle cx="58" cy="24" r="2.5" fill="#F5D061"/>
+
+  <!-- Face -->
+  <path d="M35 37 C35 55 42 64 50 64 C58 64 65 55 65 37 C65 29 58 28 50 28 C42 28 35 29 35 37 Z" fill="#DFA178"/>
+
+  <!-- Eyes & Eyebrows -->
+  <ellipse cx="44" cy="42" rx="2" ry="2.2" fill="#261A14"/>
+  <ellipse cx="56" cy="42" rx="2" ry="2.2" fill="#261A14"/>
+  <path d="M41 38 Q44 36 47 38" stroke="#3D2517" stroke-width="1.3" stroke-linecap="round"/>
+  <path d="M53 38 Q56 36 59 38" stroke="#3D2517" stroke-width="1.3" stroke-linecap="round"/>
+
+  <!-- Nose & Warm Smile -->
+  <path d="M50 44 L49 49 L51 49" stroke="#BA7A50" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M45 54 Q50 59 55 54" stroke="#9E3B33" stroke-width="1.6" stroke-linecap="round"/>
+
+  <!-- Gold Earrings -->
+  <circle cx="34" cy="48" r="2" stroke="#F5D061" stroke-width="1.2" fill="none"/>
+  <circle cx="66" cy="48" r="2" stroke="#F5D061" stroke-width="1.2" fill="none"/>
+</svg>

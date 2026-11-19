@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" fill="none">
+  <defs>
+    <linearGradient id="gridLine" x1="0" y1="0" x2="1200" y2="600" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#55745E" stop-opacity="0.4"/>
+      <stop offset="50%" stop-color="#C47A59" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#D49B5B" stop-opacity="0.4"/>
+    </linearGradient>
+    <linearGradient id="goldGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#D49B5B" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#D49B5B" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Perspective Floor Grid (Dining Hall Isometric Horizon) -->
+  <g stroke="url(#gridLine)" stroke-width="1" stroke-dasharray="4 4" opacity="0.6">
+    <line x1="100" y1="580" x2="450" y2="280"/>
+    <line x1="300" y1="580" x2="520" y2="280"/>
+    <line x1="500" y1="580" x2="590" y2="280"/>
+    <line x1="700" y1="580" x2="660" y2="280"/>
+    <line x1="900" y1="580" x2="730" y2="280"/>
+    <line x1="1100" y1="580" x2="800" y2="280"/>
+    <!-- Transverse Floor Lines -->
+    <line x1="150" y1="540" x2="1050" y2="540"/>
+    <line x1="240" y1="470" x2="960" y2="470"/>
+    <line x1="320" y1="410" x2="880" y2="410"/>
+    <line x1="390" y1="350" x2="810" y2="350"/>
+    <line x1="450" y1="300" x2="750" y2="300"/>
+  </g>
+
+  <!-- Architectural Background Arches (Window Zone & Wine Cellar) -->
+  <g stroke="#55745E" stroke-width="1.5" opacity="0.3" fill="none">
+    <!-- Center Arch -->
+    <path d="M500 280 L500 140 C500 85 700 85 700 140 L700 280"/>
+    <path d="M520 280 L520 145 C520 100 680 100 680 145 L680 280" stroke-dasharray="3 3"/>
+    <!-- Left Arch -->
+    <path d="M260 280 L260 160 C260 115 420 115 420 160 L420 280"/>
+    <!-- Right Arch -->
+    <path d="M780 280 L780 160 C780 115 940 115 940 160 L940 280"/>
+  </g>
+
+  <!-- Hanging Pendant Bistro Lights -->
+  <g stroke="#C47A59" stroke-width="1.2" opacity="0.5">
+    <!-- Light 1 -->
+    <line x1="340" y1="0" x2="340" y2="120"/>
+    <ellipse cx="340" cy="125" rx="14" ry="6" fill="#D49B5B" fill-opacity="0.3"/>
+    <circle cx="340" cy="125" r="40" fill="url(#goldGlow)"/>
+
+    <!-- Light 2 (Center) -->
+    <line x1="600" y1="0" x2="600" y2="100"/>
+    <ellipse cx="600" cy="105" rx="18" ry="8" fill="#D49B5B" fill-opacity="0.3"/>
+    <circle cx="600" cy="105" r="50" fill="url(#goldGlow)"/>
+
+    <!-- Light 3 -->
+    <line x1="860" y1="0" x2="860" y2="120"/>
+    <ellipse cx="860" cy="125" rx="14" ry="6" fill="#D49B5B" fill-opacity="0.3"/>
+    <circle cx="860" cy="125" r="40" fill="url(#goldGlow)"/>
+  </g>
+
+  <!-- Dining Tables (Stylized 3D Floor Outlines) -->
+  <!-- Table Left (Window Bistro) -->
+  <g opacity="0.55">
+    <ellipse cx="280" cy="460" rx="42" ry="22" fill="#55745E" fill-opacity="0.1" stroke="#55745E" stroke-width="1.6"/>
+    <!-- Chairs -->
+    <ellipse cx="230" cy="460" rx="10" ry="8" stroke="#55745E" stroke-width="1.2"/>
+    <ellipse cx="330" cy="460" rx="10" ry="8" stroke="#55745E" stroke-width="1.2"/>
+    <ellipse cx="280" cy="432" rx="12" ry="6" stroke="#55745E" stroke-width="1.2"/>
+    <ellipse cx="280" cy="488" rx="12" ry="6" stroke="#55745E" stroke-width="1.2"/>
+  </g>
+
+  <!-- Table Center (Main Dining Round) -->
+  <g opacity="0.65">
+    <ellipse cx="600" cy="420" rx="55" ry="26" fill="#C47A59" fill-opacity="0.1" stroke="#C47A59" stroke-width="1.8"/>
+    <!-- Center Vase / Saffron Flower -->
+    <circle cx="600" cy="420" r="4.5" fill="#C47A59"/>
+    <!-- Chairs -->
+    <ellipse cx="535" cy="420" rx="11" ry="9" stroke="#C47A59" stroke-width="1.3"/>
+    <ellipse cx="665" cy="420" rx="11" ry="9" stroke="#C47A59" stroke-width="1.3"/>
+    <ellipse cx="565" cy="392" rx="12" ry="7" stroke="#C47A59" stroke-width="1.3"/>
+    <ellipse cx="635" cy="392" rx="12" ry="7" stroke="#C47A59" stroke-width="1.3"/>
+    <ellipse cx="565" cy="448" rx="12" ry="7" stroke="#C47A59" stroke-width="1.3"/>
+    <ellipse cx="635" cy="448" rx="12" ry="7" stroke="#C47A59" stroke-width="1.3"/>
+  </g>
+
+  <!-- Table Right (Booth Zone Rectangle) -->
+  <g opacity="0.55">
+    <rect x="860" y="440" width="90" height="42" rx="10" fill="#55745E" fill-opacity="0.1" stroke="#55745E" stroke-width="1.6"/>
+    <!-- Bench Backrests -->
+    <path d="M850 435 C850 430 960 430 960 435" stroke="#55745E" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M850 488 C850 493 960 493 960 488" stroke="#55745E" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- AI Pathfinding & Node Linkage Overlay (Subtle Heuristic Edges) -->
+  <g opacity="0.45">
+    <!-- Curved routing paths connecting tables to entrance and service stations -->
+    <path d="M280 460 Q440 380 600 420" stroke="#D49B5B" stroke-width="1.5" stroke-dasharray="4 4"/>
+    <path d="M600 420 Q730 460 905 460" stroke="#D49B5B" stroke-width="1.5" stroke-dasharray="4 4"/>
+    <path d="M600 420 Q600 280 600 210" stroke="#7EA98B" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+    <!-- AI Node Markers -->
+    <circle cx="280" cy="460" r="5" fill="#55745E"/>
+    <circle cx="280" cy="460" r="9" stroke="#55745E" stroke-width="1" stroke-dasharray="2 2"/>
+
+    <circle cx="600" cy="420" r="6" fill="#C47A59"/>
+    <circle cx="600" cy="420" r="11" stroke="#C47A59" stroke-width="1" stroke-dasharray="2 2"/>
+
+    <circle cx="905" cy="460" r="5" fill="#55745E"/>
+    <circle cx="905" cy="460" r="9" stroke="#55745E" stroke-width="1" stroke-dasharray="2 2"/>
+
+    <!-- Heuristic Star at Host Stand (Center Top) -->
+    <polygon points="600,202 602,208 608,210 602,212 600,218 598,212 592,210 598,208" fill="#F5D061"/>
+  </g>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <defs>
+    <linearGradient id="harmSage" x1="10" y1="10" x2="70" y2="70" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7EA98B"/>
+      <stop offset="100%" stop-color="#46624F"/>
+    </linearGradient>
+    <linearGradient id="harmGold" x1="20" y1="10" x2="60" y2="50" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F5D061"/>
+      <stop offset="100%" stop-color="#C47A59"/>
+    </linearGradient>
+  </defs>
+  <!-- Background Pill -->
+  <rect width="80" height="80" rx="22" fill="#F0F7F2" fill-opacity="0.9"/>
+  
+  <!-- Harmonized Table Fit with AI Path Connection -->
+  <rect x="18" y="26" width="22" height="18" rx="5" stroke="#55745E" stroke-width="1.8" fill="#FFFFFF"/>
+  <rect x="42" y="38" width="22" height="18" rx="5" stroke="#55745E" stroke-width="1.8" fill="#FFFFFF"/>
+  <!-- Connecting AI Golden Spline -->
+  <path d="M29 35 Q40 22 53 47" stroke="url(#harmGold)" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 2"/>
+
+  <!-- AI Optimization Star Node -->
+  <polygon points="53,24 55,29 60,30 55,32 53,37 51,32 46,30 51,29" fill="url(#harmGold)"/>
+
+  <!-- Success Checkmark Badge -->
+  <circle cx="28" cy="54" r="7" fill="url(#harmSage)"/>
+  <path d="M25 54 L27 56 L31 52" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
