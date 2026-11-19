@@ -44,18 +44,18 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# CORS Middleware - permits calls from GitHub Pages (jiyasuteri.github.io) and local dev
+# CORS Middleware - restricted to authorized frontend origins (GitHub Pages, Vercel domains, and local dev)
+cors_origins = list(settings.CORS_ORIGINS)
+if settings.FRONTEND_URL and settings.FRONTEND_URL.strip():
+    cleaned_frontend_url = settings.FRONTEND_URL.strip().rstrip("/")
+    if cleaned_frontend_url not in cors_origins:
+        cors_origins.append(cleaned_frontend_url)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "https://jiyasuteri.github.io",
-    ],
-    allow_origin_regex=r"^https?://.*$",
-    allow_credentials=False,
+    allow_origins=cors_origins,
+    allow_origin_regex=r"^https://([a-zA-Z0-9-]+\.)?vercel\.app$",
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )

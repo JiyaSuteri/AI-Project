@@ -34,8 +34,8 @@ class Settings(BaseSettings):
         "http://localhost:3000",
         "http://127.0.0.1:3000",
         "https://jiyasuteri.github.io",
-        "*"
     ]
+    FRONTEND_URL: str = ""
 
     model_config = SettingsConfigDict(
         env_file=".env",
