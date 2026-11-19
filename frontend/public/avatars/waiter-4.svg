@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="w4bg" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#EBE8E3"/>
+      <stop offset="100%" stop-color="#DCD6CC"/>
+    </linearGradient>
+    <linearGradient id="w4hair" x1="20" y1="10" x2="80" y2="50" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#222"/>
+      <stop offset="100%" stop-color="#0E0E0E"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="100" height="100" rx="28" fill="url(#w4bg)"/>
+
+  <!-- Uniform: Charcoal Bistro Shirt & Apron -->
+  <path d="M20 100 C20 76 34 70 50 70 C66 70 80 76 80 100 Z" fill="#202A24"/>
+  <!-- Collar Accent -->
+  <path d="M43 70 L50 78 L57 70 Z" fill="#FAF7F2"/>
+
+  <!-- Neck -->
+  <path d="M44 58 L44 71 C46 73 54 73 56 71 L56 58 Z" fill="#E8C4A5"/>
+
+  <!-- Hair Back -->
+  <path d="M33 34 C33 20 42 16 50 16 C58 16 67 20 67 34 L67 44 L33 44 Z" fill="url(#w4hair)"/>
+
+  <!-- Face -->
+  <path d="M35 34 C35 54 42 64 50 64 C58 64 65 54 65 34 C65 25 58 24 50 24 C42 24 35 25 35 34 Z" fill="#F4D3B8"/>
+
+  <!-- Sleek Hair Top -->
+  <path d="M32 32 C35 21 44 18 51 18 C59 18 68 21 68 30 C64 24 57 22 50 23 C42 24 36 27 32 32 Z" fill="url(#w4hair)"/>
+
+  <!-- Modern Glasses (Tortoiseshell/Charcoal) -->
+  <!-- Left Lens -->
+  <rect x="38" y="37" width="10" height="8" rx="2.5" stroke="#3A2C25" stroke-width="1.8" fill="#FFFFFF" fill-opacity="0.15"/>
+  <!-- Right Lens -->
+  <rect x="52" y="37" width="10" height="8" rx="2.5" stroke="#3A2C25" stroke-width="1.8" fill="#FFFFFF" fill-opacity="0.15"/>
+  <!-- Bridge & Temples -->
+  <path d="M48 40 L52 40" stroke="#3A2C25" stroke-width="1.8"/>
+  <path d="M35 39 L38 40" stroke="#3A2C25" stroke-width="1.6"/>
+  <path d="M62 40 L65 39" stroke="#3A2C25" stroke-width="1.6"/>
+
+  <!-- Eyes behind lenses -->
+  <ellipse cx="43" cy="41" rx="1.8" ry="1.8" fill="#1C1815"/>
+  <ellipse cx="57" cy="41" rx="1.8" ry="1.8" fill="#1C1815"/>
+
+  <!-- Eyebrows -->
+  <path d="M39 34 Q43 33 47 34" stroke="#1F1A17" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M53 34 Q57 33 61 34" stroke="#1F1A17" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Nose & Smile -->
+  <path d="M50 43 L49 48 L51 48" stroke="#D1A784" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M46 54 Q50 57 54 54" stroke="#7A3D30" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

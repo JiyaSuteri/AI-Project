@@ -50,20 +50,20 @@ export default function AddReservationModal({ isOpen, onClose }) {
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-xs font-semibold text-[#28352D] mb-1">Customer / Host Name</label>
+          <label className="block text-xs font-semibold text-[#28352D] dark:text-[#F3EFEA] mb-1">Customer / Host Name</label>
           <input
             type="text"
             required
             value={customerName}
             onChange={(e) => setCustomerName(e.target.value)}
             placeholder="e.g. Senator Collins, Claire Redfield"
-            className="w-full bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl px-3.5 py-2 text-sm text-[#28352D] focus:outline-none focus:border-[#55745E] placeholder-stone-400"
+            className="w-full bg-[#FAF7F2] dark:bg-[#111613] border border-[#E8E3DA] dark:border-[#2A382F] rounded-xl px-3.5 py-2 text-sm text-[#28352D] dark:text-[#F3EFEA] focus:outline-none focus:border-[#55745E] dark:focus:border-[#6E9A7B] placeholder-stone-400 dark:placeholder-stone-500"
           />
         </div>
 
         <div className="grid grid-cols-3 gap-3">
           <div>
-            <label className="block text-xs font-semibold text-[#28352D] mb-1">Party Size</label>
+            <label className="block text-xs font-semibold text-[#28352D] dark:text-[#F3EFEA] mb-1">Party Size</label>
             <input
               type="number"
               min="1"
@@ -71,56 +71,56 @@ export default function AddReservationModal({ isOpen, onClose }) {
               required
               value={groupSize}
               onChange={(e) => setGroupSize(e.target.value)}
-              className="w-full bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl px-3.5 py-2 text-sm text-[#28352D] focus:outline-none focus:border-[#55745E]"
+              className="w-full bg-[#FAF7F2] dark:bg-[#111613] border border-[#E8E3DA] dark:border-[#2A382F] rounded-xl px-3.5 py-2 text-sm text-[#28352D] dark:text-[#F3EFEA] focus:outline-none focus:border-[#55745E] dark:focus:border-[#6E9A7B]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-[#28352D] mb-1">Date</label>
+            <label className="block text-xs font-semibold text-[#28352D] dark:text-[#F3EFEA] mb-1">Date</label>
             <input
               type="date"
               required
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl px-3.5 py-2 text-sm text-[#28352D] focus:outline-none focus:border-[#55745E]"
+              className="w-full bg-[#FAF7F2] dark:bg-[#111613] border border-[#E8E3DA] dark:border-[#2A382F] rounded-xl px-3.5 py-2 text-sm text-[#28352D] dark:text-[#F3EFEA] focus:outline-none focus:border-[#55745E] dark:focus:border-[#6E9A7B]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-[#28352D] mb-1">Time</label>
+            <label className="block text-xs font-semibold text-[#28352D] dark:text-[#F3EFEA] mb-1">Time</label>
             <input
               type="time"
               required
               value={time}
               onChange={(e) => setTime(e.target.value)}
-              className="w-full bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl px-3.5 py-2 text-sm text-[#28352D] focus:outline-none focus:border-[#55745E]"
+              className="w-full bg-[#FAF7F2] dark:bg-[#111613] border border-[#E8E3DA] dark:border-[#2A382F] rounded-xl px-3.5 py-2 text-sm text-[#28352D] dark:text-[#F3EFEA] focus:outline-none focus:border-[#55745E] dark:focus:border-[#6E9A7B]"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-[#28352D] mb-1">Special Preferences / Requests</label>
+          <label className="block text-xs font-semibold text-[#28352D] dark:text-[#F3EFEA] mb-1">Special Preferences / Requests</label>
           <textarea
             rows={3}
             value={requests}
             onChange={(e) => setRequests(e.target.value)}
             placeholder="e.g. Quiet booth, Birthday celebration, Allergen notice"
-            className="w-full bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl px-3.5 py-2 text-sm text-[#28352D] focus:outline-none focus:border-[#55745E] placeholder-stone-400"
+            className="w-full bg-[#FAF7F2] dark:bg-[#111613] border border-[#E8E3DA] dark:border-[#2A382F] rounded-xl px-3.5 py-2 text-sm text-[#28352D] dark:text-[#F3EFEA] focus:outline-none focus:border-[#55745E] dark:focus:border-[#6E9A7B] placeholder-stone-400 dark:placeholder-stone-500"
           />
         </div>
 
-        <div className="pt-4 border-t border-[#E8E3DA] flex justify-end gap-2.5">
+        <div className="pt-4 border-t border-[#E8E3DA] dark:border-[#2A382F] flex justify-end gap-2.5">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 rounded-xl text-xs font-medium text-stone-500 hover:text-[#28352D] transition-colors cursor-pointer"
+            className="px-4 py-2 rounded-xl text-xs font-medium text-stone-500 dark:text-[#98A89E] hover:text-[#28352D] dark:hover:text-white transition-colors cursor-pointer"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={loading}
-            className="px-5 py-2 rounded-xl text-xs font-semibold bg-[#55745E] hover:bg-[#455E4C] text-white shadow-xs transition-all disabled:opacity-50 cursor-pointer"
+            className="px-5 py-2 rounded-xl text-xs font-semibold bg-[#55745E] dark:bg-[#6E9A7B] hover:bg-[#45604D] dark:hover:bg-[#5B8267] text-white shadow-xs transition-all disabled:opacity-50 cursor-pointer"
           >
             {loading ? 'Confirming...' : 'Save Reservation'}
           </button>

@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -13,6 +14,15 @@ export default {
           text: '#28352D',
           border: '#E8E3DA',
           subtext: '#6B7A70',
+        },
+        dark: {
+          bg: '#111613',
+          card: '#18201B',
+          elevated: '#1F2A23',
+          border: '#2A382F',
+          borderSubtle: '#222E26',
+          text: '#F3EFEA',
+          subtext: '#98A89E',
         },
         sage: {
           50: '#F5F8F6',
@@ -59,6 +69,8 @@ export default {
       boxShadow: {
         'card': '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)',
         'card-hover': '0 8px 24px -4px rgba(38, 51, 43, 0.08), 0 2px 6px -2px rgba(38, 51, 43, 0.04)',
+        'dark-card': '0 2px 8px -2px rgba(0, 0, 0, 0.35), 0 1px 3px -1px rgba(0, 0, 0, 0.25)',
+        'dark-hover': '0 8px 24px -4px rgba(0, 0, 0, 0.5), 0 2px 6px -2px rgba(0, 0, 0, 0.3)',
         'pill': '0 1px 2px 0 rgba(99, 131, 109, 0.1)',
       },
     },

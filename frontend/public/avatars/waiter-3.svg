@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="w3bg" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#EBECE7"/>
+      <stop offset="100%" stop-color="#D6DDD0"/>
+    </linearGradient>
+    <linearGradient id="w3hair" x1="20" y1="10" x2="80" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3A2820"/>
+      <stop offset="100%" stop-color="#1C1410"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="100" height="100" rx="28" fill="url(#w3bg)"/>
+
+  <!-- Uniform: Sage Vest -->
+  <path d="M22 100 C22 76 34 71 50 71 C66 71 78 76 78 100 Z" fill="#55745E"/>
+  <!-- Crisp Black Undershirt -->
+  <path d="M42 71 L50 81 L58 71 Z" fill="#18201B"/>
+  <!-- Gold Sommelier Grape Pin -->
+  <circle cx="63" cy="83" r="2.5" fill="#D49B5B"/>
+
+  <!-- Neck -->
+  <path d="M45 59 L45 71 C47 73 53 73 55 71 L55 59 Z" fill="#EFCBB0"/>
+
+  <!-- Hair Back / Bob Base -->
+  <path d="M30 36 C30 20 40 16 50 16 C60 16 70 20 70 36 L72 58 C68 62 64 62 62 58 L62 44 L38 44 L38 58 C36 62 32 62 28 58 Z" fill="url(#w3hair)"/>
+
+  <!-- Face -->
+  <path d="M36 36 C36 54 42 63 50 63 C58 63 64 54 64 36 C64 26 58 24 50 24 C42 24 36 26 36 36 Z" fill="#F8DAC2"/>
+
+  <!-- Bob Cut Front Bangs -->
+  <path d="M34 32 C38 24 46 22 50 23 C58 24 66 28 66 34 C61 30 54 28 49 28 C41 28 36 30 34 32 Z" fill="url(#w3hair)"/>
+  <path d="M33 34 L37 54 C35 52 33 46 33 34 Z" fill="url(#w3hair)"/>
+  <path d="M67 34 L63 54 C65 52 67 46 67 34 Z" fill="url(#w3hair)"/>
+
+  <!-- Eyes & Eyebrows -->
+  <ellipse cx="43" cy="41" rx="2" ry="2.2" fill="#201815"/>
+  <ellipse cx="57" cy="41" rx="2" ry="2.2" fill="#201815"/>
+  <path d="M40 37 Q43 35 46 37" stroke="#3A2820" stroke-width="1.3" stroke-linecap="round"/>
+  <path d="M54 37 Q57 35 60 37" stroke="#3A2820" stroke-width="1.3" stroke-linecap="round"/>
+
+  <!-- Nose & Elegant Smile -->
+  <path d="M50 43 L49 48 L51 48" stroke="#DCA583" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M46 54 Q50 57 54 54" stroke="#B84A39" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

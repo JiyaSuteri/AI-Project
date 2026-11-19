@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ThemeProvider } from './context/ThemeContext';
 import { RestaurantProvider, useRestaurant } from './context/RestaurantContext';
 import { AuthProvider } from './context/AuthContext';
 import Sidebar from './components/Sidebar';
@@ -60,7 +61,7 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] text-[#28352D] flex relative overflow-x-hidden selection:bg-[#55745E]/20 selection:text-[#28352D]">
+    <div className="min-h-screen bg-[#FAF7F2] dark:bg-[#111613] text-[#28352D] dark:text-[#F3EFEA] flex relative overflow-x-hidden selection:bg-[#55745E]/20 dark:selection:bg-[#6E9A7B]/30 transition-colors duration-200">
       {/* 3D Isometric & Depth Elements Canvas (Default Disabled) */}
       <Background3D enabled={bg3DEnabled} />
 
@@ -88,10 +89,12 @@ function AppContent() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <RestaurantProvider>
-        <AppContent />
-      </RestaurantProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <RestaurantProvider>
+          <AppContent />
+        </RestaurantProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }

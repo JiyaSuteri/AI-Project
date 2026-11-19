@@ -56,37 +56,37 @@ export default function TableManagementPage() {
       {/* Page Title & Actions */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-[#28352D] font-serif tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-bold text-[#28352D] dark:text-[#F3EFEA] font-serif tracking-tight">
             Floor Plan &amp; Table Management
           </h1>
-          <p className="text-xs sm:text-sm text-stone-500 mt-0.5">
+          <p className="text-xs sm:text-sm text-stone-500 dark:text-[#98A89E] mt-0.5">
             Configure floor sections, monitor real-time dining tables, and transition operational states.
           </p>
         </div>
 
         <div className="flex items-center flex-wrap gap-2.5">
           <div className="relative">
-            <Search className="w-3.5 h-3.5 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-3.5 h-3.5 text-stone-400 dark:text-stone-500 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={localSearch}
               onChange={(e) => setLocalSearch(e.target.value)}
               placeholder="Search table or section..."
-              className="bg-white border border-[#E8E3DA] rounded-xl pl-8 pr-3 py-1.5 text-xs text-[#28352D] shadow-xs focus:outline-none focus:border-[#55745E]"
+              className="bg-white dark:bg-[#18201B] border border-[#E8E3DA] dark:border-[#2A382F] rounded-xl pl-8 pr-3 py-1.5 text-xs text-[#28352D] dark:text-[#F3EFEA] shadow-xs focus:outline-none focus:border-[#55745E] dark:focus:border-[#6E9A7B]"
             />
           </div>
 
           <button
             onClick={() => triggerRefresh()}
-            className="p-2 rounded-xl text-stone-600 bg-white hover:bg-stone-50 border border-[#E8E3DA] shadow-xs transition-colors cursor-pointer"
+            className="p-2 rounded-xl text-stone-600 dark:text-[#98A89E] bg-white dark:bg-[#18201B] hover:bg-stone-50 dark:hover:bg-[#1F2A23] border border-[#E8E3DA] dark:border-[#2A382F] shadow-xs transition-colors cursor-pointer"
             title="Refresh floor tables"
           >
-            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-[#55745E]' : ''}`} />
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-[#55745E] dark:text-[#6E9A7B]' : ''}`} />
           </button>
 
           <button
             onClick={() => setShowAddModal(true)}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-[#55745E] hover:bg-[#45604D] text-white shadow-xs transition-all cursor-pointer"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-[#55745E] dark:bg-[#6E9A7B] hover:bg-[#45604D] dark:hover:bg-[#5B8267] text-white shadow-xs transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             Add Table
@@ -108,8 +108,8 @@ export default function TableManagementPage() {
             onClick={() => setFilter(tab.id)}
             className={`px-3.5 py-2 rounded-xl font-medium transition-all shrink-0 border cursor-pointer ${
               filter === tab.id
-                ? 'bg-[#55745E] text-white border-[#55745E] shadow-xs'
-                : 'bg-white hover:bg-stone-50 text-stone-600 border-[#E8E3DA]'
+                ? 'bg-[#55745E] dark:bg-[#6E9A7B] text-white border-[#55745E] dark:border-[#6E9A7B] shadow-xs font-bold'
+                : 'bg-white dark:bg-[#18201B] hover:bg-stone-50 dark:hover:bg-[#1F2A23] text-stone-600 dark:text-[#98A89E] border-[#E8E3DA] dark:border-[#2A382F]'
             }`}
           >
             {tab.label}

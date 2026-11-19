@@ -156,17 +156,17 @@ export default function SettingsPage() {
       {/* Title */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-[#28352D] font-serif tracking-tight flex items-center gap-2">
+          <h1 className="text-xl sm:text-2xl font-bold text-[#28352D] dark:text-[#F3EFEA] font-serif tracking-tight flex items-center gap-2">
             <span>System Settings &amp; Backend Configuration</span>
           </h1>
-          <p className="text-xs sm:text-sm text-stone-500 mt-0.5">
+          <p className="text-xs sm:text-sm text-stone-500 dark:text-[#98A89E] mt-0.5">
             Configure backend URL, AI inference provider, operational rules, and database persistence.
           </p>
         </div>
 
         <button
           onClick={() => setShowAddPolicy(true)}
-          className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-[#55745E] hover:bg-[#455E4C] text-white shadow-xs transition-all cursor-pointer"
+          className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-[#55745E] dark:bg-[#6E9A7B] hover:bg-[#45604D] dark:hover:bg-[#5B8267] text-white shadow-xs transition-all cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           Add Service Policy
@@ -174,24 +174,24 @@ export default function SettingsPage() {
       </div>
 
       {/* Backend & Deployment Connectivity */}
-      <div className="bg-white rounded-3xl shadow-xs p-5 sm:p-6 space-y-5 border border-[#E8E3DA]">
+      <div className="bg-white dark:bg-[#18201B] rounded-3xl shadow-xs p-5 sm:p-6 space-y-5 border border-[#E8E3DA] dark:border-[#2A382F] transition-colors duration-200">
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#55745E]/10 border border-[#55745E]/20 flex items-center justify-center text-[#55745E]">
+            <div className="w-10 h-10 rounded-xl bg-[#55745E]/10 dark:bg-[#6E9A7B]/20 border border-[#55745E]/20 dark:border-[#6E9A7B]/30 flex items-center justify-center text-[#55745E] dark:text-[#6E9A7B]">
               <Server className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-sm font-bold text-[#28352D] flex items-center gap-2 font-serif">
+              <h2 className="text-sm font-bold text-[#28352D] dark:text-[#F3EFEA] flex items-center gap-2 font-serif">
                 <span>FastAPI Backend Deployment &amp; Networking</span>
                 <span className={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full ${
                   activeBackendMode === 'live'
-                    ? 'bg-[#55745E]/10 text-[#55745E] border border-[#55745E]/20'
-                    : 'bg-[#C47A59]/15 text-[#916E32] border border-[#C47A59]/30'
+                    ? 'bg-[#55745E]/10 dark:bg-[#6E9A7B]/20 text-[#55745E] dark:text-[#6E9A7B] border border-[#55745E]/20 dark:border-[#6E9A7B]/30'
+                    : 'bg-[#C47A59]/15 dark:bg-[#C47A59]/25 text-[#916E32] dark:text-[#DC8A66] border border-[#C47A59]/30'
                 }`}>
                   {activeBackendMode === 'live' ? 'Live API Mode' : 'Standalone Demo Mode'}
                 </span>
               </h2>
-              <p className="text-xs text-stone-500">
+              <p className="text-xs text-stone-500 dark:text-[#98A89E]">
                 Connect the frontend to your live FastAPI service or run in localhost development.
               </p>
             </div>
@@ -202,8 +202,8 @@ export default function SettingsPage() {
               onClick={() => handleToggleMode('live')}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
                 activeBackendMode === 'live'
-                  ? 'bg-[#55745E] text-white border-[#55745E] shadow-xs'
-                  : 'bg-white text-stone-600 border-[#E8E3DA] hover:bg-stone-50'
+                  ? 'bg-[#55745E] dark:bg-[#6E9A7B] text-white border-[#55745E] dark:border-[#6E9A7B] shadow-xs'
+                  : 'bg-white dark:bg-[#18201B] text-stone-600 dark:text-[#98A89E] border-[#E8E3DA] dark:border-[#2A382F] hover:bg-stone-50'
               }`}
             >
               Live Backend
@@ -212,8 +212,8 @@ export default function SettingsPage() {
               onClick={() => handleToggleMode('demo')}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
                 activeBackendMode === 'demo'
-                  ? 'bg-[#55745E] text-white border-[#55745E] shadow-xs'
-                  : 'bg-white text-stone-600 border-[#E8E3DA] hover:bg-stone-50'
+                  ? 'bg-[#55745E] dark:bg-[#6E9A7B] text-white border-[#55745E] dark:border-[#6E9A7B] shadow-xs'
+                  : 'bg-white dark:bg-[#18201B] text-stone-600 dark:text-[#98A89E] border-[#E8E3DA] dark:border-[#2A382F] hover:bg-stone-50'
               }`}
             >
               Offline Demo
@@ -224,7 +224,7 @@ export default function SettingsPage() {
         {/* Backend URL Form */}
         <form onSubmit={handleSaveBackendUrl} className="space-y-3 pt-1">
           <div>
-            <label className="block text-xs font-semibold text-[#28352D] mb-1.5">
+            <label className="block text-xs font-semibold text-[#28352D] dark:text-[#F3EFEA] mb-1.5">
               Live Backend Endpoint (Render Web Service / Localhost)
             </label>
             <div className="flex gap-2">
@@ -233,11 +233,11 @@ export default function SettingsPage() {
                 value={customUrl}
                 onChange={(e) => setCustomUrl(e.target.value)}
                 placeholder="https://saffron-sage-backend.onrender.com"
-                className="flex-1 bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl px-3.5 py-2 text-xs text-[#28352D] placeholder-stone-400 focus:outline-none focus:border-[#55745E]"
+                className="flex-1 bg-[#FAF7F2] dark:bg-[#111613] border border-[#E8E3DA] dark:border-[#2A382F] rounded-xl px-3.5 py-2 text-xs text-[#28352D] dark:text-[#F3EFEA] placeholder-stone-400 dark:placeholder-stone-500 focus:outline-none focus:border-[#55745E] dark:focus:border-[#6E9A7B]"
               />
               <button
                 type="submit"
-                className="px-4 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-stone-50 text-[#28352D] border border-[#E8E3DA] transition-colors cursor-pointer shadow-xs"
+                className="px-4 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-[#1F2A23] hover:bg-stone-50 dark:hover:bg-[#26332B] text-[#28352D] dark:text-[#F3EFEA] border border-[#E8E3DA] dark:border-[#2A382F] transition-colors cursor-pointer shadow-xs"
               >
                 Save URL
               </button>
@@ -245,15 +245,15 @@ export default function SettingsPage() {
                 type="button"
                 onClick={handleTestBackendConnection}
                 disabled={testingConnection}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-[#55745E]/10 hover:bg-[#55745E]/20 text-[#55745E] border border-[#55745E]/20 transition-colors disabled:opacity-50 cursor-pointer"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-[#55745E]/10 dark:bg-[#6E9A7B]/20 hover:bg-[#55745E]/20 text-[#55745E] dark:text-[#6E9A7B] border border-[#55745E]/20 dark:border-[#6E9A7B]/30 transition-colors disabled:opacity-50 cursor-pointer"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${testingConnection ? 'animate-spin' : ''}`} />
                 <span>Test Connection</span>
               </button>
             </div>
-            <div className="text-[11px] text-stone-500 mt-1.5 flex items-center gap-1.5">
+            <div className="text-[11px] text-stone-500 dark:text-[#98A89E] mt-1.5 flex items-center gap-1.5">
               <span>Active Target:</span>
-              <code className="text-[#55745E] bg-[#FAF7F2] px-1.5 py-0.5 rounded border border-[#E8E3DA] font-mono">
+              <code className="text-[#55745E] dark:text-[#6E9A7B] bg-[#FAF7F2] dark:bg-[#111613] px-1.5 py-0.5 rounded border border-[#E8E3DA] dark:border-[#2A382F] font-mono">
                 {getApiBaseUrl()}
               </code>
             </div>
@@ -262,8 +262,8 @@ export default function SettingsPage() {
           {connectionResult && (
             <div className={`p-3 rounded-xl text-xs border ${
               connectionResult.success
-                ? 'bg-[#55745E]/10 text-[#55745E] border-[#55745E]/30'
-                : 'bg-rose-50 text-rose-700 border-rose-200'
+                ? 'bg-[#55745E]/10 dark:bg-[#6E9A7B]/20 text-[#55745E] dark:text-[#6E9A7B] border-[#55745E]/30 dark:border-[#6E9A7B]/40'
+                : 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-900'
             }`}>
               {connectionResult.message}
             </div>
@@ -272,44 +272,44 @@ export default function SettingsPage() {
       </div>
 
       {/* Groq Engine Configuration Panel */}
-      <div className="bg-white rounded-3xl shadow-xs p-5 sm:p-6 space-y-4 border border-[#E8E3DA]">
+      <div className="bg-white dark:bg-[#18201B] rounded-3xl shadow-xs p-5 sm:p-6 space-y-4 border border-[#E8E3DA] dark:border-[#2A382F]">
         <div className="flex items-center justify-between flex-wrap gap-2">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-[#55745E]/10 border border-[#55745E]/20 flex items-center justify-center text-[#55745E]">
+            <div className="w-9 h-9 rounded-xl bg-[#55745E]/10 dark:bg-[#6E9A7B]/20 border border-[#55745E]/20 dark:border-[#6E9A7B]/30 flex items-center justify-center text-[#55745E] dark:text-[#6E9A7B]">
               <Cpu className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-sm font-bold text-[#28352D] font-serif">AI Intelligence Provider</h2>
-              <p className="text-xs text-stone-500">Low-latency LPU inference with real-time SQLite grounding</p>
+              <h2 className="text-sm font-bold text-[#28352D] dark:text-[#F3EFEA] font-serif">AI Intelligence Provider</h2>
+              <p className="text-xs text-stone-500 dark:text-[#98A89E]">Low-latency LPU inference with real-time SQLite grounding</p>
             </div>
           </div>
-          <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#55745E]/10 text-[#55745E] border border-[#55745E]/20">
+          <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#55745E]/10 dark:bg-[#6E9A7B]/20 text-[#55745E] dark:text-[#6E9A7B] border border-[#55745E]/20 dark:border-[#6E9A7B]/30">
             Active &amp; Grounded
           </span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-          <div className="p-3 rounded-2xl bg-[#FAF7F2] border border-[#E8E3DA]">
-            <div className="text-[10px] text-stone-500 uppercase font-semibold">Engine</div>
-            <div className="text-sm font-bold text-[#55745E] mt-0.5">Groq LPU</div>
+          <div className="p-3 rounded-2xl bg-[#FAF7F2] dark:bg-[#111613] border border-[#E8E3DA] dark:border-[#2A382F]">
+            <div className="text-[10px] text-stone-500 dark:text-[#98A89E] uppercase font-semibold">Engine</div>
+            <div className="text-sm font-bold text-[#55745E] dark:text-[#6E9A7B] mt-0.5">Groq LPU</div>
           </div>
-          <div className="p-3 rounded-2xl bg-[#FAF7F2] border border-[#E8E3DA]">
-            <div className="text-[10px] text-stone-500 uppercase font-semibold">Model</div>
-            <div className="text-sm font-bold text-[#28352D] mt-0.5">{aiProviderInfo || 'llama-3.3-70b-versatile'}</div>
+          <div className="p-3 rounded-2xl bg-[#FAF7F2] dark:bg-[#111613] border border-[#E8E3DA] dark:border-[#2A382F]">
+            <div className="text-[10px] text-stone-500 dark:text-[#98A89E] uppercase font-semibold">Model</div>
+            <div className="text-sm font-bold text-[#28352D] dark:text-[#F3EFEA] mt-0.5">{aiProviderInfo || 'llama-3.3-70b-versatile'}</div>
           </div>
-          <div className="p-3 rounded-2xl bg-[#FAF7F2] border border-[#E8E3DA]">
-            <div className="text-[10px] text-stone-500 uppercase font-semibold">Average Latency</div>
-            <div className="text-sm font-bold text-[#55745E] mt-0.5">&lt; 1.5 seconds</div>
+          <div className="p-3 rounded-2xl bg-[#FAF7F2] dark:bg-[#111613] border border-[#E8E3DA] dark:border-[#2A382F]">
+            <div className="text-[10px] text-stone-500 dark:text-[#98A89E] uppercase font-semibold">Average Latency</div>
+            <div className="text-sm font-bold text-[#55745E] dark:text-[#6E9A7B] mt-0.5">&lt; 1.5 seconds</div>
           </div>
         </div>
       </div>
 
       {/* Operational Policies Table */}
-      <div className="bg-white rounded-3xl shadow-xs p-5 sm:p-6 space-y-4 border border-[#E8E3DA]">
+      <div className="bg-white dark:bg-[#18201B] rounded-3xl shadow-xs p-5 sm:p-6 space-y-4 border border-[#E8E3DA] dark:border-[#2A382F]">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-sm font-bold text-[#28352D] font-serif">Active Service Policies ({policies.length})</h2>
-            <p className="text-xs text-stone-500">Rules utilized by RAG semantic retrieval and multi-agent coordination</p>
+            <h2 className="text-sm font-bold text-[#28352D] dark:text-[#F3EFEA] font-serif">Active Service Policies ({policies.length})</h2>
+            <p className="text-xs text-stone-500 dark:text-[#98A89E]">Rules utilized by RAG semantic retrieval and multi-agent coordination</p>
           </div>
         </div>
 
@@ -317,25 +317,25 @@ export default function SettingsPage() {
           {policies.map((p) => (
             <div
               key={p.id}
-              className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#E8E3DA] hover:border-[#55745E]/30 transition-all flex items-start justify-between gap-4 text-xs"
+              className="p-4 rounded-2xl bg-[#FAF7F2] dark:bg-[#111613] border border-[#E8E3DA] dark:border-[#2A382F] hover:border-[#55745E]/30 transition-all flex items-start justify-between gap-4 text-xs"
             >
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-[#28352D] text-sm">{p.policy_name}</span>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#C47A59]/15 text-[#916E32] border border-[#C47A59]/30">
+                  <span className="font-bold text-[#28352D] dark:text-[#F3EFEA] text-sm">{p.policy_name}</span>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#C47A59]/15 dark:bg-[#C47A59]/25 text-[#916E32] dark:text-[#DC8A66] border border-[#C47A59]/30">
                     {p.category}
                   </span>
                 </div>
-                <p className="text-stone-600 leading-relaxed font-normal">{p.description}</p>
+                <p className="text-stone-600 dark:text-[#98A89E] leading-relaxed font-normal">{p.description}</p>
               </div>
 
               <div className="flex items-center gap-3 shrink-0 pt-1">
                 <button
                   onClick={() => handleTogglePolicy(p)}
-                  className={`px-3 py-1 rounded-full text-[11px] font-semibold border transition-colors cursor-pointer ${
+                  className={`px-3 py-1 rounded-full text-[10px] font-semibold border cursor-pointer ${
                     p.is_active
-                      ? 'bg-[#55745E]/10 text-[#55745E] border-[#55745E]/20'
-                      : 'bg-stone-100 text-stone-500 border-stone-200'
+                      ? 'bg-[#55745E]/10 dark:bg-[#6E9A7B]/20 text-[#55745E] dark:text-[#6E9A7B] border-[#55745E]/20 dark:border-[#6E9A7B]/30'
+                      : 'bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400 border-stone-300 dark:border-stone-700'
                   }`}
                 >
                   {p.is_active ? 'Active' : 'Disabled'}
@@ -343,7 +343,7 @@ export default function SettingsPage() {
 
                 <button
                   onClick={() => handleDeletePolicy(p)}
-                  className="p-1 text-stone-400 hover:text-rose-600 transition-colors cursor-pointer"
+                  className="p-1 text-stone-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors cursor-pointer"
                   title="Delete policy"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -355,16 +355,16 @@ export default function SettingsPage() {
       </div>
 
       {/* System Administration & DB Reset */}
-      <div className="bg-white rounded-3xl shadow-xs p-5 sm:p-6 space-y-4 border border-[#E8E3DA]">
-        <h2 className="text-sm font-bold text-[#28352D] font-serif">System Maintenance &amp; Benchmark Data</h2>
-        <p className="text-xs text-stone-500">
+      <div className="bg-white dark:bg-[#18201B] rounded-3xl shadow-xs p-5 sm:p-6 space-y-4 border border-[#E8E3DA] dark:border-[#2A382F]">
+        <h2 className="text-sm font-bold text-[#28352D] dark:text-[#F3EFEA] font-serif">System Maintenance &amp; Benchmark Data</h2>
+        <p className="text-xs text-stone-500 dark:text-[#98A89E]">
           Restore the pristine initial state at any time for testing, evaluator demonstration, or academic presentations.
         </p>
 
-        <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#E8E3DA] flex items-center justify-between gap-4 flex-wrap">
+        <div className="p-4 rounded-2xl bg-[#FAF7F2] dark:bg-[#111613] border border-[#E8E3DA] dark:border-[#2A382F] flex items-center justify-between gap-4 flex-wrap">
           <div>
-            <div className="text-xs font-bold text-[#28352D]">Re-seed Database Benchmark Data</div>
-            <div className="text-[11px] text-stone-500">
+            <div className="text-xs font-bold text-[#28352D] dark:text-[#F3EFEA]">Re-seed Database Benchmark Data</div>
+            <div className="text-[11px] text-stone-500 dark:text-[#98A89E]">
               Restores 14 tables, 6 waiters, 12 customer groups, 6 reservations, and 11 policies.
             </div>
           </div>
@@ -372,7 +372,7 @@ export default function SettingsPage() {
           <button
             onClick={handleResetDatabase}
             disabled={loading}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-stone-50 text-[#28352D] border border-[#E8E3DA] shadow-xs transition-all disabled:opacity-50 cursor-pointer"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-[#1F2A23] hover:bg-stone-50 dark:hover:bg-[#26332B] text-[#28352D] dark:text-[#F3EFEA] border border-[#E8E3DA] dark:border-[#2A382F] shadow-xs transition-all disabled:opacity-50 cursor-pointer"
           >
             <RotateCcw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
             Reset Database
@@ -389,23 +389,23 @@ export default function SettingsPage() {
       >
         <form onSubmit={handleAddPolicy} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-[#28352D] mb-1">Policy Title</label>
+            <label className="block text-xs font-semibold text-[#28352D] dark:text-[#F3EFEA] mb-1">Policy Title</label>
             <input
               type="text"
               required
               value={newPolicyName}
               onChange={(e) => setNewPolicyName(e.target.value)}
               placeholder="e.g. VIP Priority Protocol"
-              className="w-full bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl px-3.5 py-2 text-sm text-[#28352D] placeholder-stone-400 focus:outline-none focus:border-[#55745E]"
+              className="w-full bg-[#FAF7F2] dark:bg-[#111613] border border-[#E8E3DA] dark:border-[#2A382F] rounded-xl px-3.5 py-2 text-sm text-[#28352D] dark:text-[#F3EFEA] placeholder-stone-400 dark:placeholder-stone-500 focus:outline-none focus:border-[#55745E] dark:focus:border-[#6E9A7B]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-[#28352D] mb-1">Category</label>
+            <label className="block text-xs font-semibold text-[#28352D] dark:text-[#F3EFEA] mb-1">Category</label>
             <select
               value={newPolicyCat}
               onChange={(e) => setNewPolicyCat(e.target.value)}
-              className="w-full bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl px-3.5 py-2 text-sm text-[#28352D] focus:outline-none focus:border-[#55745E]"
+              className="w-full bg-[#FAF7F2] dark:bg-[#111613] border border-[#E8E3DA] dark:border-[#2A382F] rounded-xl px-3.5 py-2 text-sm text-[#28352D] dark:text-[#F3EFEA] focus:outline-none focus:border-[#55745E] dark:focus:border-[#6E9A7B]"
             >
               <option value="ALLOCATION">ALLOCATION</option>
               <option value="RESERVATION">RESERVATION</option>
@@ -416,29 +416,29 @@ export default function SettingsPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-[#28352D] mb-1">Policy Description / Rule Text</label>
+            <label className="block text-xs font-semibold text-[#28352D] dark:text-[#F3EFEA] mb-1">Policy Description / Rule Text</label>
             <textarea
               required
               rows={4}
               value={newPolicyDesc}
               onChange={(e) => setNewPolicyDesc(e.target.value)}
               placeholder="Detail the exact operational criteria and constraints..."
-              className="w-full bg-[#FAF7F2] border border-[#E8E3DA] rounded-xl px-3.5 py-2 text-sm text-[#28352D] placeholder-stone-400 focus:outline-none focus:border-[#55745E]"
+              className="w-full bg-[#FAF7F2] dark:bg-[#111613] border border-[#E8E3DA] dark:border-[#2A382F] rounded-xl px-3.5 py-2 text-sm text-[#28352D] dark:text-[#F3EFEA] placeholder-stone-400 dark:placeholder-stone-500 focus:outline-none focus:border-[#55745E] dark:focus:border-[#6E9A7B]"
             />
           </div>
 
-          <div className="pt-3 border-t border-[#E8E3DA] flex justify-end gap-2.5">
+          <div className="pt-3 border-t border-[#E8E3DA] dark:border-[#2A382F] flex justify-end gap-2.5">
             <button
               type="button"
               onClick={() => setShowAddPolicy(false)}
-              className="px-4 py-2 rounded-xl text-xs font-medium text-stone-500 hover:text-[#28352D] transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-xl text-xs font-medium text-stone-500 dark:text-[#98A89E] hover:text-[#28352D] dark:hover:text-white transition-colors cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-5 py-2 rounded-xl text-xs font-semibold bg-[#55745E] hover:bg-[#455E4C] text-white shadow-xs transition-all disabled:opacity-50 font-medium cursor-pointer"
+              className="px-5 py-2 rounded-xl text-xs font-semibold bg-[#55745E] dark:bg-[#6E9A7B] hover:bg-[#45604D] dark:hover:bg-[#5B8267] text-white shadow-xs transition-all disabled:opacity-50 font-medium cursor-pointer"
             >
               {loading ? 'Saving...' : 'Add Policy'}
             </button>
