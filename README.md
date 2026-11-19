@@ -28,11 +28,44 @@ This project resolves these challenges by combining **graph search optimization 
 
 | Resource | Description | Format / Link |
 |---|---|---|
-| 🌐 **Live Web Application** | Deployed interactive frontend with simulated backend fallback | [GitHub Pages Deployment](https://jiyasuteri.github.io/AI-Project/) |
+| 🌐 **Live Web Application** | Deployed interactive frontend with 3D floor plan and theme switcher | [GitHub Pages Deployment](https://jiyasuteri.github.io/AI-Project/) |
+| ⚡ **Vercel Frontend** | Production cloud deployment with instant global edge caching | [Deploy with Vercel](https://vercel.com/new/clone?repository-url=https://github.com/JiyaSuteri/AI-Project&root-directory=frontend) |
+| 🚀 **Render Backend** | FastAPI backend with Groq LPU AI engine & database auto-seeding | [Deploy to Render](https://render.com/deploy?repo=https://github.com/JiyaSuteri/AI-Project) |
 | 📘 **Formal Project Report** | Comprehensive academic thesis detailing algorithms, mathematical proofs, and benchmarks | [`docs/MAJOR_PROJECT_REPORT.md`](docs/MAJOR_PROJECT_REPORT.md) / [HTML](docs/MAJOR_PROJECT_REPORT.html) |
 | 🖥️ **Presentation Deck** | Interactive 10-slide presentation deck formatted for project defense | [`docs/PROJECT_PRESENTATION_SLIDES.html`](docs/PROJECT_PRESENTATION_SLIDES.html) |
 | 🎙️ **Defense Script & Q&A** | Complete slide-by-slide presenter talk-track and examiner viva prep | [`docs/PROJECT_PRESENTATION_PPT.md`](docs/PROJECT_PRESENTATION_PPT.md) |
 | ⚡ **Interactive API Docs** | Auto-generated OpenAPI / Swagger documentation (when backend running) | `http://127.0.0.1:8000/docs` |
+
+---
+
+## 🚀 Cloud Deployment (Render & Vercel)
+
+Deploy your own live instances with automated CI/CD:
+
+### 1. Backend (FastAPI on Render)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/JiyaSuteri/AI-Project)
+
+- **Repository:** `https://github.com/JiyaSuteri/AI-Project`
+- **Root Directory:** `backend`
+- **Build Command:** `pip install -r requirements.txt`
+- **Start Command:** `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+- **Environment Variables:**
+  - `PYTHON_VERSION`: `3.11.9`
+  - `DEBUG`: `false`
+  - `GROQ_API_KEY`: *(Your Groq API key from console.groq.com)*
+  - `GROQ_MODEL`: `llama-3.3-70b-versatile`
+  - `DATABASE_URL`: `sqlite:///./restaurant_planner.db` *(or PostgreSQL URL)*
+
+### 2. Frontend (React + Vite on Vercel)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/JiyaSuteri/AI-Project&root-directory=frontend)
+
+- **Repository:** `https://github.com/JiyaSuteri/AI-Project`
+- **Root Directory:** `frontend`
+- **Framework Preset:** Vite
+- **Build Command:** `npm run build`
+- **Output Directory:** `dist`
+- **Environment Variables:**
+  - `VITE_API_URL`: `<your-render-backend-url>` (e.g. `https://saffron-sage-backend.onrender.com`)
 
 ---
 
