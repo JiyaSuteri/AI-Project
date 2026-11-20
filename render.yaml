@@ -18,3 +18,5 @@ services:
         value: llama-3.3-70b-versatile
       - key: DATABASE_URL
         value: sqlite:///./restaurant_planner.db
+      - key: FRONTEND_URL
+        value: https://jiyasuteri.github.io

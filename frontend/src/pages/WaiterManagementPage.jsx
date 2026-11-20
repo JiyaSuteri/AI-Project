@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRestaurant } from '../context/RestaurantContext';
 import { api } from '../services/api';
+import { assetUrl } from '../utils/assetUrl';
 import AddWaiterModal from '../components/AddWaiterModal';
 import { UserCheck, Plus, CheckCircle2, XCircle, Trash2, Award, Clock, Search } from 'lucide-react';
 
@@ -114,7 +115,7 @@ export default function WaiterManagementPage() {
                         {w.name.split(' ').map((n) => n[0]).join('')}
                       </span>
                       <img
-                        src={`/avatars/waiter-${((w.id - 1) % 6) + 1}.svg`}
+                        src={assetUrl(`/avatars/waiter-${((w.id - 1) % 6) + 1}.svg`)}
                         alt={`${w.name} avatar`}
                         className="relative z-10 w-full h-full object-cover"
                         loading="lazy"

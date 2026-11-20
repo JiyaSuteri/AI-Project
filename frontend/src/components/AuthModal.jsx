@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useRestaurant } from '../context/RestaurantContext';
+import { assetUrl } from '../utils/assetUrl';
 import {
   UtensilsCrossed,
   UserCheck,
@@ -82,7 +83,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess }) {
         <div className="text-center space-y-2 pt-2">
           <div className="w-12 h-12 rounded-2xl bg-[#55745E] dark:bg-[#6E9A7B] flex items-center justify-center mx-auto shadow-md overflow-hidden p-1.5">
             <img
-              src="/brand/bistro-crest.svg"
+              src={assetUrl('/brand/bistro-crest.svg')}
               alt="Saffron &amp; Sage Brand Crest"
               className="w-full h-full object-contain"
               loading="eager"

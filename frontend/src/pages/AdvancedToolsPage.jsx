@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { assetUrl } from '../utils/assetUrl';
 import AlgorithmComparisonPage from './AlgorithmComparisonPage';
 import SimulationPage from './SimulationPage';
 import AnalyticsPage from './AnalyticsPage';
@@ -63,7 +64,7 @@ export default function AdvancedToolsPage() {
       {/* AI Laboratory Visual Showcase */}
       <div className="relative w-full h-36 sm:h-44 rounded-3xl overflow-hidden border border-[#E8E3DA] dark:border-[#2A382F] shadow-xs group">
         <img
-          src="/images/ai-algorithm-artwork.jpg"
+          src={assetUrl('/images/ai-algorithm-artwork.jpg')}
           alt="AI Heuristic Algorithm Neural Decision Tree"
           className="w-full h-full object-cover object-center transform group-hover:scale-[1.01] transition-transform duration-500"
           loading="eager"

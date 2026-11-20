@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useRestaurant } from '../context/RestaurantContext';
 import { useAuth } from '../context/AuthContext';
+import { assetUrl } from '../utils/assetUrl';
 import AuthModal from '../components/AuthModal';
 import {
   UtensilsCrossed,
@@ -89,7 +90,7 @@ export default function LandingPage() {
         {/* Architectural Dining Floor Watermark */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.04] dark:opacity-[0.07] overflow-hidden flex items-center justify-center select-none">
           <img
-            src="/illustrations/restaurant-hero-bg.svg"
+            src={assetUrl('/illustrations/restaurant-hero-bg.svg')}
             alt=""
             aria-hidden="true"
             className="w-full h-full object-cover"
@@ -101,7 +102,7 @@ export default function LandingPage() {
           {/* Status Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#55745E]/10 dark:bg-[#6E9A7B]/20 text-[#55745E] dark:text-[#6E9A7B] text-xs font-semibold border border-[#55745E]/20 dark:border-[#6E9A7B]/30">
             <img
-              src="/brand/bistro-crest.svg"
+              src={assetUrl('/brand/bistro-crest.svg')}
               alt=""
               aria-hidden="true"
               className="w-4 h-4 object-contain"
@@ -146,7 +147,7 @@ export default function LandingPage() {
           {/* Hero Restaurant Interior Visual */}
           <div className="relative w-full h-56 sm:h-72 lg:h-80 rounded-2xl overflow-hidden border border-[#E8E3DA] dark:border-[#2A382F] shadow-sm my-6 group">
             <img
-              src="/images/restaurant-interior.jpg"
+              src={assetUrl('/images/restaurant-interior.jpg')}
               alt="Saffron &amp; Sage Luxury Bistro Dining Room"
               className="w-full h-full object-cover transform group-hover:scale-[1.01] transition-transform duration-500"
               loading="eager"
@@ -190,7 +191,7 @@ export default function LandingPage() {
         <div className="p-7 rounded-3xl bg-white dark:bg-[#18201B] border border-[#E8E3DA] dark:border-[#2A382F] shadow-sm space-y-3 relative overflow-hidden group">
           <div className="relative w-full h-40 sm:h-48 rounded-2xl overflow-hidden border border-rose-200/60 dark:border-rose-900/40 shadow-xs mb-3">
             <img
-              src="/images/restaurant-dining-seating.jpg"
+              src={assetUrl('/images/restaurant-dining-seating.jpg')}
               alt="Dinner rush in dining room"
               className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
@@ -207,7 +208,7 @@ export default function LandingPage() {
               <span>The Real-World Problem</span>
             </div>
             <img
-              src="/illustrations/manual-chaos.svg"
+              src={assetUrl('/illustrations/manual-chaos.svg')}
               alt="Floor bottleneck illustration"
               className="w-7 h-7 rounded-lg object-contain shrink-0 opacity-85 dark:opacity-75"
               loading="lazy"
@@ -222,7 +223,7 @@ export default function LandingPage() {
         <div className="p-7 rounded-3xl bg-white dark:bg-[#18201B] border border-[#E8E3DA] dark:border-[#2A382F] shadow-sm space-y-3 relative overflow-hidden group">
           <div className="relative w-full h-40 sm:h-48 rounded-2xl overflow-hidden border border-[#55745E]/30 dark:border-[#6E9A7B]/40 shadow-xs mb-3">
             <img
-              src="/images/ai-restaurant-3d.jpg"
+              src={assetUrl('/images/ai-restaurant-3d.jpg')}
               alt="AI multi-zone 3D table allocation layout"
               className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
@@ -239,7 +240,7 @@ export default function LandingPage() {
               <span>The AI Solution</span>
             </div>
             <img
-              src="/illustrations/ai-harmony.svg"
+              src={assetUrl('/illustrations/ai-harmony.svg')}
               alt="Autonomous table allocation illustration"
               className="w-7 h-7 rounded-lg object-contain shrink-0 opacity-85 dark:opacity-75"
               loading="lazy"

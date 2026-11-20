@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRestaurant } from '../context/RestaurantContext';
 import { useAuth } from '../context/AuthContext';
+import { assetUrl } from '../utils/assetUrl';
 import {
   LayoutDashboard,
   LayoutGrid,
@@ -60,7 +61,7 @@ export default function Sidebar({ isOpen, onClose }) {
           >
             <div className="w-9 h-9 rounded-xl bg-[#55745E] dark:bg-[#6E9A7B] flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform overflow-hidden p-1">
               <img
-                src="/brand/bistro-crest.svg"
+                src={assetUrl('/brand/bistro-crest.svg')}
                 alt="Saffron &amp; Sage Brand Crest"
                 className="w-full h-full object-contain"
                 loading="eager"

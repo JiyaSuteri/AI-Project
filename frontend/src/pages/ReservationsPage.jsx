@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRestaurant } from '../context/RestaurantContext';
 import { api } from '../services/api';
+import { assetUrl } from '../utils/assetUrl';
 import AddReservationModal from '../components/AddReservationModal';
 import { CalendarDays, Plus, Clock, Users, CheckCircle2, XCircle, Trash2, Search } from 'lucide-react';
 
@@ -123,7 +124,7 @@ export default function ReservationsPage() {
       {/* Reservation Visual Showcase Banner */}
       <div className="relative w-full h-32 sm:h-40 rounded-3xl overflow-hidden border border-[#E8E3DA] dark:border-[#2A382F] shadow-xs group">
         <img
-          src="/images/reservation-booking.jpg"
+          src={assetUrl('/images/reservation-booking.jpg')}
           alt="Luxury Table Reservation and VIP Booking Management"
           className="w-full h-full object-cover object-center transform group-hover:scale-[1.01] transition-transform duration-500"
           loading="eager"

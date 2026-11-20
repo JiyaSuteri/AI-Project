@@ -3,6 +3,7 @@ import { useRestaurant } from '../context/RestaurantContext';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { api } from '../services/api';
+import { assetUrl } from '../utils/assetUrl';
 import AuthModal from './AuthModal';
 import {
   Menu,
@@ -95,7 +96,7 @@ export default function TopNavbar({ onMenuToggle }) {
           <div className="hidden sm:block">
             <div className="text-sm font-semibold text-[#28352D] dark:text-[#F3EFEA] flex items-center gap-2">
               <img
-                src="/brand/bistro-crest.svg"
+                src={assetUrl('/brand/bistro-crest.svg')}
                 alt=""
                 aria-hidden="true"
                 className="w-5 h-5 object-contain"
